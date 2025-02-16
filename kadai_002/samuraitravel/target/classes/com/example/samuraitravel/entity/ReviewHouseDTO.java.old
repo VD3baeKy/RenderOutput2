@@ -1,0 +1,13 @@
+package com.example.samuraitravel.entity;
+
+public class ReviewHouseDTO {
+    private Review review;
+    private House house;
+
+    public ReviewHouseDTO(Review review, House house) {
+        this.review = review;
+        this.house = house;
+    }
+
+    // ゲッターとセッター
+}
