@@ -315,9 +315,8 @@
 
 						<!-- レビューカード表示 -->
 						<script type="text/javascript" th:inline="javascript">
-							
-								window.onload = function() {
-									/***** DEBUG MODE *****/
+							window.onload = function() {
+								/***** DEBUG MODE *****/
 								var debugging=false;
 								/**********************/
 								
@@ -356,20 +355,26 @@
 							    const prevButton = document.getElementById('prevButton');
 							    const nextButton = document.getElementById('nextButton');
 							
-							    // カルーセルの更新
 							    function updateCarousel() {
 							        const totalCards = reviewList.children.length;
-							        //const totalPages = Math.ceil(totalCards / cardsPerPage);
-							         const totalPages = Math.ceil((totalCards - 1) / (cardsPerPage - 1)); // 1枚前のカードを含めるために調整
-							        //const offset = -currentPage * 100; // 1ページあたり100%の幅
-							        const offset = -(currentPage * (cardsPerPage - 1)) * 100 / cardsPerPage; // 1ページあたりのカード数を調整
-							        reviewList.style.transform = `translateX(${offset}%)`;
-							        
-							        prevButton.disabled = currentPage === 0;
-							        nextButton.disabled = currentPage === totalPages - 1;
+							        const totalPages = Math.ceil(totalCards / cardsPerPage);
+							
+							        // フェードアウト
+							        reviewList.style.opacity = 0;
+							
+							        setTimeout(() => {
+							            // 現在のページのオフセットを計算
+							            const offset = -(currentPage * cardsPerPage) * 100 / cardsPerPage; // 1ページあたりのカード数を調整
+							            reviewList.style.transform = `translateX(${offset}%)`;
+							
+							            // フェードイン
+							            reviewList.style.opacity = 1;
+							
+							            prevButton.disabled = currentPage === 0;
+							            nextButton.disabled = currentPage === totalPages - 1;
+							        }, 500); // フェードアウトの時間と同じ
 							    }
 							
-							    // カルーセルのナビゲーション
 							    prevButton.addEventListener('click', () => {
 							        if (currentPage > 0) {
 							            currentPage--;
@@ -378,8 +383,8 @@
 							    });
 							
 							    nextButton.addEventListener('click', () => {
-        							const totalCards = reviewList.children.length;
-							        const totalPages = Math.ceil((totalCards - 1) / (cardsPerPage - 1)); // 1枚前のカードを含めるために調整
+							        const totalCards = reviewList.children.length;
+							        const totalPages = Math.ceil(totalCards / cardsPerPage);
 							        if (currentPage < totalPages - 1) {
 							            currentPage++;
 							            updateCarousel();
@@ -400,56 +405,53 @@
 							        const card = document.createElement('div');
 							        card.className = 'review-card';
 							        if(currentUserIdData==userId){
-								        card.innerHTML = `
-										    <p>${isUserExistencee}</p>
-										    <h5>${rating}</h5>
-										    <h5 class="content-text" style="display: none;">${content}</h5>
-										    <h5>${content.length > 10 ? content.substring(0, 7) + '...' : content}</h5>
-									        <a href="#" class="edit-link" data-id="${reviewid}" data-house-id="${houseid}" data-content="${content}" data-house-name="${houseName}" data-rating="${ratingNum}" data-toggle="modal" data-target="#editModal">編集</a>
-									        <a href="#" class="delete-link" data-id="${reviewid}" data-house-id="${houseid}" data-content="${content}" data-house-name="${houseName}" data-rating="${ratingNum}" data-toggle="modal" data-target="#deleteModal">削除</a>
-										`;
-									}else{
-										card.innerHTML = `
-										    <p>${isUserExistencee}</p>
-										    <h5>${rating}</h5>
-										    <h5 class="content-text" style="display: none;">${content}</h5>
-										    <h5>${content.length > 10 ? content.substring(0, 7) + '...' : content}</h5>
-										`;
-									}
+							            card.innerHTML = `
+							                <p>${isUserExistencee}</p>
+							                <h5>${rating}</h5>
+							                <h5 class="content-text" style="display: none;">${content}</h5>
+							                <h5>${content.length > 10 ? content.substring(0, 7) + '...' : content}</h5>
+							                <a href="#" class="edit-link" data-id="${reviewid}" data-house-id="${houseid}" data-content="${content}" data-house-name="${houseName}" data-rating="${ratingNum}" data-toggle="modal" data-target="#editModal">編集</a>
+							                <a href="#" class="delete-link" data-id="${reviewid}" data-house-id="${houseid}" data-content="${content}" data-house-name="${houseName}" data-rating="${ratingNum}" data-toggle="modal" data-target="#deleteModal">削除</a>
+							            `;
+							        } else {
+							            card.innerHTML = `
+							                <p>${isUserExistencee}</p>
+							                <h5>${rating}</h5>
+							                <h5 class="content-text" style="display: none;">${content}</h5>
+							                <h5>${content.length > 10 ? content.substring(0, 7) + '...' : content}</h5>
+							            `;
+							        }
 							        reviewList.appendChild(card);
 							    }
 							    updateCarousel();
 							
 							    // モーダルのイベントリスナー
 							    if (isAuthenticatedData) {
-							        // 編集リンクのイベントリスナー
-								    document.querySelectorAll('.edit-link').forEach(button => {
-								        button.addEventListener('click', function(event) {
-								            event.stopPropagation(); // イベントの伝播を防ぐ
-								            const reviewIdData = this.getAttribute('data-id');
-								            const contentData = this.getAttribute('data-content');
-								            const houseIdData = this.getAttribute('data-house-id');
-								            const ratingData = this.getAttribute('data-rating');
-								            document.getElementById('editContent').value = contentData;
-								            document.getElementById('editRatingNumber').value = ratingData;
-								            document.getElementById('actioncamen2').action = `/houses/${houseIdData}/review/edit`;
-								            document.getElementById('mendoina2').value = reviewIdData;
-								            $('#editModal').modal('show');
-								        });
-								    });
-
+							        document.querySelectorAll('.edit-link').forEach(button => {
+							            button.addEventListener('click', function(event) {
+							                event.stopPropagation(); // イベントの伝播を防ぐ
+							                const reviewIdData = this.getAttribute('data-id');
+							                const contentData = this.getAttribute('data-content');
+							                const houseIdData = this.getAttribute('data-house-id');
+							                const ratingData = this.getAttribute('data-rating');
+							                document.getElementById('editContent').value = contentData;
+							                document.getElementById('editRatingNumber').value = ratingData;
+							                document.getElementById('actioncamen2').action = `/houses/${houseIdData}/review/edit`;
+							                document.getElementById('mendoina2').value = reviewIdData;
+							                $('#editModal').modal('show');
+							            });
+							        });
 							
-							        // 削除リンクのイベントリスナー
-								    document.querySelectorAll('.delete-link').forEach(button => {
-								        button.addEventListener('click', function(event) {
-								            event.stopPropagation(); // イベントの伝播を防ぐ
-								            const reviewIdData = this.getAttribute('data-id');
-								            const houseIdData = this.getAttribute('data-house-id');
-								            document.getElementById('actioncamen1').action = `/houses/${houseIdData}/review/delete`;
-								            document.getElementById('mendoina1').value = reviewIdData;
-								            $('#deleteModal').modal('show');
-								        });
-								    });
+							        document.querySelectorAll('.delete-link').forEach(button => {
+							            button.addEventListener('click', function(event) {
+							                event.stopPropagation(); // イベントの伝播を防ぐ
+							                const reviewIdData = this.getAttribute('data-id');
+							                const houseIdData = this.getAttribute('data-house-id');
+							                document.getElementById('actioncamen1').action = `/houses/${houseIdData}/review/delete`;
+							                document.getElementById('mendoina1').value = reviewIdData;
+							                $('#deleteModal').modal('show');
+							            });
+							        });
 							
 							        document.getElementById('confirmDelete').addEventListener('click', function() {
 							            const reviewToDelete = document.getElementById('mendoina1').value;
@@ -459,24 +461,21 @@
 							        });
 							    }
 							
-							    // レビュー投稿モーダルの表示
 							    const reviewWriteButton = document.getElementById('reviewWriteButton');
 							    if (reviewWriteButton) {
 							        reviewWriteButton.onclick = function() {
 							            $('#writeModal').modal('show');
 							        };
 							    }
-							   
-							     // カードをクリックしたときのイベントリスナーを設定
+							
 							    document.querySelectorAll('.review-card').forEach(card => {
 							        card.addEventListener('click', function(event) {
-							            // 編集や削除のリンクをクリックした場合は、カードのクリックイベントを発火させない
 							            if (event.target.matches('.edit-link, .delete-link')) {
 							                return;
 							            }
-							            const content = this.querySelector('.content-text').textContent; // 特定のクラスを持つ要素を取得
-							            document.getElementById('modalContent').textContent = content; // モーダルにコンテンツを設定
-							            $('#contentModal').modal('show'); // モーダルを表示
+							            const content = this.querySelector('.content-text').textContent;
+							            document.getElementById('modalContent').textContent = content;
+							            $('#contentModal').modal('show');
 							        });
 							    });
 							};
