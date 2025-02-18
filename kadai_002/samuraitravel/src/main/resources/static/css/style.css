@@ -134,30 +134,52 @@ footer {
     align-items: center; /* 中央揃え */
 }
 
-#carousel {
-    overflow: hidden;
-    width: 100%;
-    max-width: 800px; /* カルーセル全体の幅を設定 */
-    margin-bottom: 10px;
-    position: relative;
-}
-
-#reviewList {
+#cardContainer {
     display: flex;
-    transition: opacity 0.5s ease; /* フェードアニメーション */
-    opacity: 1; /* 初期状態は表示 */
+    flex-wrap: wrap; /* 複数行にわたってカードを配置 */
+    justify-content: flex-start; /* 左詰めに配置 */
+    gap: 5px; /* カード間のスペース */
 }
 
 .review-card {
-    flex: 0 0 calc(20% - 20px); /* 100% / 5枚 = 20% */
+    flex: 0 0 calc(20% - 15px); /* 5枚並べるための幅 */
     box-sizing: border-box;
     padding: 10px;
-    margin: 10px; /* カード間のスペース */
+    margin: 5px;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-    transition: transform 0.3s ease;
+    position: relative; /* ツールチップの位置を相対的に設定 */
+    display: inline-block; /* インラインブロックに設定 */
+    cursor: pointer; /* カーソルをポインターに設定 */
+}
+
+
+.tooltip {
+    visibility: hidden; /* 初期状態では非表示 */
+    background-color: #333; /* 背景色 */
+    color: #fff; /* 文字色 */
+    text-align: center; /* テキストを中央揃え */
+    border-radius: 5px; /* 角を丸くする */
+    padding: 5px; /* 内側の余白 */
+    position: absolute; /* 絶対位置 */
+    z-index: 1; /* 重なり順序 */
+    bottom: 105%; /* カードの上に表示 */
+    left: 50%; /* カードの中央に表示 */
+    transform: translateX(-50%); /* 中央揃え */
+    opacity: 0; /* 初期状態では透明 */
+    transition: opacity 0.3s; /* フェードイン/アウトのアニメーション */
+}
+
+.review-card:hover .tooltip {
+    visibility: visible; /* ホバー時に表示 */
+    opacity: 1; /* ホバー時に不透明 */
+}
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .review-card:hover {
