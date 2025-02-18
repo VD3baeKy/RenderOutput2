@@ -137,25 +137,27 @@ footer {
 #carousel {
     overflow: hidden;
     width: 100%;
-    max-width: 1000px; /* デザインに応じて調整 */
-    margin-bottom: 10px; /* ボタンとの間にスペースを追加 */
+    max-width: 800px; /* カルーセル全体の幅を設定 */
+    margin-bottom: 10px;
+    position: relative;
 }
 
 #reviewList {
     display: flex;
-    transition: transform 0.5s ease;
+    transition: opacity 0.5s ease; /* フェードアニメーション */
+    opacity: 1; /* 初期状態は表示 */
 }
 
 .review-card {
-    flex: 0 0 19%; /* 100% / 5枚 = 20% */
+    flex: 0 0 calc(20% - 20px); /* 100% / 5枚 = 20% */
     box-sizing: border-box;
     padding: 10px;
-    margin: 3px; /* カード間のスペース */
-    border: 1px solid #ddd; /* 枠線 */
-    border-radius: 8px; /* 角を丸くする */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影 */
-    background-color: #fff; /* 背景色 */
-    transition: transform 0.3s ease; /* ホバー時のアニメーション */
+    margin: 10px; /* カード間のスペース */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.3s ease;
 }
 
 .review-card:hover {
