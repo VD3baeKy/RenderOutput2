@@ -139,6 +139,7 @@ footer {
     flex-wrap: wrap; /* 複数行にわたってカードを配置 */
     justify-content: flex-start; /* 左詰めに配置 */
     gap: 5px; /* カード間のスペース */
+ 　 margin-bottom: 20px;
 }
 
 .review-card {
