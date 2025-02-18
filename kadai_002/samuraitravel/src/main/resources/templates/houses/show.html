@@ -317,7 +317,7 @@
 						<script type="text/javascript" th:inline="javascript">
 							window.onload = function() {
 								/***** DEBUG MODE *****/
-								var debugging=false;
+								var debugging=true;
 								/**********************/
 								
 								var reviewToSome;
@@ -351,134 +351,141 @@
 							    // 初期設定
 							    let currentPage = 0;
 							    const cardsPerPage = 5;
-							    const reviewList = document.getElementById('reviewList');
+							    const cardContainer = document.getElementById('cardContainer');
 							    const prevButton = document.getElementById('prevButton');
 							    const nextButton = document.getElementById('nextButton');
 							
-							    function updateCarousel() {
-							        const totalCards = reviewList.children.length;
+							    function renderPage() {
+							        //const totalCards = reviewsWithUserName.length;
+							        const totalCards = Object.keys(reviewsWithUserName).length;
 							        const totalPages = Math.ceil(totalCards / cardsPerPage);
 							
-							        // フェードアウト
-							        reviewList.style.opacity = 0;
+							        // 現在のページに表示するカードの範囲を計算
+							        const start = currentPage * cardsPerPage;
+							        const end = start + cardsPerPage;
+									
+									console.log("start= "+start);
+									console.log("end= "+end);
+									console.log("totalCards= "+totalCards);
+									console.log("totalPages= "+totalPages);
+									
+							        // カードコンテナをクリア
+							        cardContainer.innerHTML = '';
 							
-							        setTimeout(() => {
-							            // 現在のページのオフセットを計算
-							            const offset = -(currentPage * cardsPerPage) * 100 / cardsPerPage; // 1ページあたりのカード数を調整
-							            reviewList.style.transform = `translateX(${offset}%)`;
+							        // カードを追加
+							        for (let i = start; i < end && i < totalCards; i++) {
+										console.log("i= "+i);
+							            const userId = reviewsWithUserName[i].userid;
+							            const reviewid = reviewsWithUserName[i].reviewid;
+							            const isUserExistencee = reviewsWithUserName[i].isUserExistencee.toString();
+							            const houseid = reviewsWithUserName[i].houseid;
+							            const ratingNum = reviewsWithUserName[i].rating;
+							            const content = reviewsWithUserName[i].content;
+							            let rating = '★'.repeat(ratingNum) + '☆'.repeat(5 - ratingNum);
 							
-							            // フェードイン
-							            reviewList.style.opacity = 1;
+							            const card = document.createElement('div');
+							            card.className = 'review-card';
+							            // クリックイベントを設定
+										//card.setAttribute('onclick', 'contentViewModal()');
+										
+							           if(currentUserIdData==userId){
+									        card.innerHTML = `
+											    <p>${isUserExistencee}</p>
+											    <h5>${rating}</h5>
+											    <h5 class="content-text" style="display: none;">${content}</h5>
+											    <h5>${content.length > 10 ? content.substring(0, 7) + '...' : content}</h5>
+											    <div class="tooltip">${content}</div> 
+										        <a href="#" class="edit-link" data-id="${reviewid}" data-house-id="${houseid}" data-content="${content}" data-house-name="${houseName}" data-rating="${ratingNum}" data-toggle="modal" data-target="#editModal">編集</a>
+										        <a href="#" class="delete-link" data-id="${reviewid}" data-house-id="${houseid}" data-content="${content}" data-house-name="${houseName}" data-rating="${ratingNum}" data-toggle="modal" data-target="#deleteModal">削除</a>
+											`;
+										}else{
+											card.innerHTML = `
+											    <p>${isUserExistencee}</p>
+											    <h5>${rating}</h5>
+											    <h5 class="content-text" style="display: none;">${content}</h5>
+											    <div class="tooltip">${content}</div> 
+											    <h5>${content.length > 10 ? content.substring(0, 7) + '...' : content}</h5>
+											`;											
+										}
+							            cardContainer.appendChild(card);
+							            
+							            document.querySelectorAll('.review-card').forEach(card => {
+										    const content = card.querySelector('.content-text').textContent;
+										    const tooltip = card.querySelector('.tooltip');
+										    tooltip.textContent = content; // ツールチップにコンテンツを設定
+										});
+							            console.log("******");
+							            console.log(content)
+							            
+							            // カードをクリックしたときのイベントリスナーを設定
+									    document.addEventListener('DOMContentLoaded', function() {
+										    document.querySelectorAll('.review-card').forEach(card => {
+										        card.addEventListener('click', function(event) {
+										            console.log(" review-card clicked");
+										            // 編集や削除のリンクをクリックした場合は、カードのクリックイベントを発火させない
+										            if (event.target.matches('.edit-link, .delete-link')) {
+										                return;
+										            }
+										            console.log("BIG");
+										            const content = this.querySelector('.content-text').textContent; // 特定のクラスを持つ要素を取得
+										            document.getElementById('modalContent').textContent = content; // モーダルにコンテンツを設定
+										            $('#contentModal').modal('show'); // モーダルを表示
+										        });
+										    });
+										});
+							            
+							        }
 							
-							            prevButton.disabled = currentPage === 0;
-							            nextButton.disabled = currentPage === totalPages - 1;
-							        }, 500); // フェードアウトの時間と同じ
+							        // ボタンの有効/無効を設定
+							        prevButton.disabled = currentPage === 0;
+							        nextButton.disabled = currentPage >= totalPages - 1;
+							        
 							    }
-							
+								
+								
+						        
 							    prevButton.addEventListener('click', () => {
 							        if (currentPage > 0) {
 							            currentPage--;
-							            updateCarousel();
+							            renderPage();
 							        }
 							    });
 							
 							    nextButton.addEventListener('click', () => {
-							        const totalCards = reviewList.children.length;
+									console.log("nextButton");
+							        //const totalCards = reviewsWithUserName.length;
+							        const totalCards = Object.keys(reviewsWithUserName).length;
 							        const totalPages = Math.ceil(totalCards / cardsPerPage);
 							        if (currentPage < totalPages - 1) {
 							            currentPage++;
-							            updateCarousel();
+							            renderPage();
 							        }
 							    });
-							
-							    // レビューカードの生成
-							    const idx = Object.keys(reviewsWithUserName).length;
-							    for (let i = 0; i < idx; i++) {
-							        const userId = reviewsWithUserName[i].userid;
-							        const reviewid = reviewsWithUserName[i].reviewid;
-							        const isUserExistencee = reviewsWithUserName[i].isUserExistencee.toString();
-							        const houseid = reviewsWithUserName[i].houseid;
-							        const ratingNum = reviewsWithUserName[i].rating;
-							        const content = reviewsWithUserName[i].content;
-							        let rating = '★'.repeat(ratingNum) + '☆'.repeat(5 - ratingNum);
-							
-							        const card = document.createElement('div');
-							        card.className = 'review-card';
-							        if(currentUserIdData==userId){
-							            card.innerHTML = `
-							                <p>${isUserExistencee}</p>
-							                <h5>${rating}</h5>
-							                <h5 class="content-text" style="display: none;">${content}</h5>
-							                <h5>${content.length > 10 ? content.substring(0, 7) + '...' : content}</h5>
-							                <a href="#" class="edit-link" data-id="${reviewid}" data-house-id="${houseid}" data-content="${content}" data-house-name="${houseName}" data-rating="${ratingNum}" data-toggle="modal" data-target="#editModal">編集</a>
-							                <a href="#" class="delete-link" data-id="${reviewid}" data-house-id="${houseid}" data-content="${content}" data-house-name="${houseName}" data-rating="${ratingNum}" data-toggle="modal" data-target="#deleteModal">削除</a>
-							            `;
-							        } else {
-							            card.innerHTML = `
-							                <p>${isUserExistencee}</p>
-							                <h5>${rating}</h5>
-							                <h5 class="content-text" style="display: none;">${content}</h5>
-							                <h5>${content.length > 10 ? content.substring(0, 7) + '...' : content}</h5>
-							            `;
-							        }
-							        reviewList.appendChild(card);
-							    }
-							    updateCarousel();
-							
-							    // モーダルのイベントリスナー
-							    if (isAuthenticatedData) {
-							        document.querySelectorAll('.edit-link').forEach(button => {
-							            button.addEventListener('click', function(event) {
-							                event.stopPropagation(); // イベントの伝播を防ぐ
-							                const reviewIdData = this.getAttribute('data-id');
-							                const contentData = this.getAttribute('data-content');
-							                const houseIdData = this.getAttribute('data-house-id');
-							                const ratingData = this.getAttribute('data-rating');
-							                document.getElementById('editContent').value = contentData;
-							                document.getElementById('editRatingNumber').value = ratingData;
-							                document.getElementById('actioncamen2').action = `/houses/${houseIdData}/review/edit`;
-							                document.getElementById('mendoina2').value = reviewIdData;
-							                $('#editModal').modal('show');
-							            });
-							        });
-							
-							        document.querySelectorAll('.delete-link').forEach(button => {
-							            button.addEventListener('click', function(event) {
-							                event.stopPropagation(); // イベントの伝播を防ぐ
-							                const reviewIdData = this.getAttribute('data-id');
-							                const houseIdData = this.getAttribute('data-house-id');
-							                document.getElementById('actioncamen1').action = `/houses/${houseIdData}/review/delete`;
-							                document.getElementById('mendoina1').value = reviewIdData;
-							                $('#deleteModal').modal('show');
-							            });
-							        });
-							
-							        document.getElementById('confirmDelete').addEventListener('click', function() {
-							            const reviewToDelete = document.getElementById('mendoina1').value;
-							            if (reviewToDelete) {
-							                window.location.href = `/houses/${houseId}/review/${reviewToDelete}/delete`;
-							            }
-							        });
-							    }
-							
-							    const reviewWriteButton = document.getElementById('reviewWriteButton');
-							    if (reviewWriteButton) {
-							        reviewWriteButton.onclick = function() {
-							            $('#writeModal').modal('show');
-							        };
-							    }
-							
-							    document.querySelectorAll('.review-card').forEach(card => {
-							        card.addEventListener('click', function(event) {
-							            if (event.target.matches('.edit-link, .delete-link')) {
-							                return;
-							            }
-							            const content = this.querySelector('.content-text').textContent;
-							            document.getElementById('modalContent').textContent = content;
-							            $('#contentModal').modal('show');
-							        });
-							    });
+								   								    
+								
+							    // 初期表示
+							    renderPage();
+							    
+							    /*
+							    // カードをクリックしたときのイベントリスナーを設定
+							    document.addEventListener('DOMContentLoaded', function() {
+								    document.querySelectorAll('.review-card').forEach(card => {
+								        card.addEventListener('click', function(event) {
+								            console.log(" review-card clicked");
+								            // 編集や削除のリンクをクリックした場合は、カードのクリックイベントを発火させない
+								            if (event.target.matches('.edit-link, .delete-link')) {
+								                return;
+								            }
+								            console.log("BIG");
+								            const content = this.querySelector('.content-text').textContent; // 特定のクラスを持つ要素を取得
+								            document.getElementById('modalContent').textContent = content; // モーダルにコンテンツを設定
+								            $('#contentModal').modal('show'); // モーダルを表示
+								        });
+								    });
+								});
+								*/
 							};
+								
 						</script>
 						
 						<!-- カード拡大モーダルL -->
@@ -595,16 +602,12 @@
 							</div>
 						</div>
 						
-						<div id="carouselContainer">
-						    <div id="carousel">
-						        <ul id="reviewList">
-						            <!-- ここにレビューカードが追加される -->
-						    </div>
-						    <br>
-						    <div class="carousel-buttons">
-						        <button id="prevButton" class="btn text-white shadow-sm w-100 samuraitravel-btn">前へ</button>
-						        <button id="nextButton" class="btn text-white shadow-sm w-100 samuraitravel-btn">次へ</button>
-						    </div>
+						<div id="cardContainer">
+						    <!-- カードがここに追加されます -->
+						</div>
+						<div class="pagination-controls">
+						    <button id="prevButton" class="btn text-white shadow-sm w-100 samuraitravel-btn">前へ</button>
+						    <button id="nextButton" class="btn text-white shadow-sm w-100 samuraitravel-btn" >次へ</button>
 						</div>
 						 
 						
@@ -637,6 +640,34 @@
 				    $('#writeModal').modal('hide');
 				    $('#contentModal').modal('hide');
 			}
+			/*
+			// カードをクリックしたときのイベントリスナーを設定]
+			function contentViewModal() {
+			    const content = this.querySelectorAll.('.content-text').textContent; // 特定のクラスを持つ要素を取得
+			    document.getElementById('modalContent').textContent = content; // モーダルにコンテンツを設定
+			    $('#contentModal').modal('show'); // モーダルを表示
+			}
+			
+			document.querySelectorAll('.review-card').forEach(card => {
+			    card.addEventListener('click', function() {
+			        contentViewModal.call(this); // thisを明示的に設定
+			    });
+			});
+			*/
+			/*
+		    document.querySelectorAll('.review-card').forEach(card => {
+				console.log("review-card FOR");
+		        card.addEventListener('click', function(event) {
+		            // 編集や削除のリンクをクリックした場合は、カードのクリックイベントを発火させない
+		            if (event.target.matches('.edit-link, .delete-link')) {
+		                return;
+		            }
+		            const content = this.querySelector('.content-text').textContent; // 特定のクラスを持つ要素を取得
+		            document.getElementById('modalContent').textContent = content; // モーダルにコンテンツを設定
+		            $('#contentModal').modal('show'); // モーダルを表示
+		        });
+		    });
+		    */
 		</script>
 								
 	</body>
