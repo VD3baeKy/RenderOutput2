@@ -440,10 +440,14 @@
 							        console.log("currentPage= "+currentPage);
 							        if( currentPage === 0 && prevButton!=null){
 								        prevButton.disabled;								       
-							        }
+							        }else{
+									prevButton.disabled = false;	
+								}
 							        if(currentPage >= totalPages - 1 && nextButton!=null ){
-										 nextButton.disabled;
-									}
+									 nextButton.disabled = true;
+								}else{
+									nextButton.disabled = false;
+								}
 							        
 							    }
 								
