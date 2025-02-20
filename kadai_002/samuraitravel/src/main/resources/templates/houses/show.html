@@ -209,7 +209,7 @@
 				<div>
  					<h3 th:text="'［' + ${house.getName()}+ '］のレビュー　全 ' + ${reviews.size()} +' 件'"></h3>
  					<div style="padding: 20px;">
-					 	<button id="reviewLinkButton" class="btn text-white shadow-sm w-100 samuraitravel-btn">すべてのレビューを表示する</button>
+					 	<button th:if="${reviews.size()>0}" id="reviewLinkButton" class="btn text-white shadow-sm w-100 samuraitravel-btn">すべてのレビューを表示する</button>
 					 	<script type="text/javascript" th:inline="javascript">
 						    document.getElementById('reviewLinkButton').onclick = function() {
 								var houseID= /*[[${houseID}]]*/ ;
@@ -437,30 +437,38 @@
 							        }
 							
 							        // ボタンの有効/無効を設定
-							        prevButton.disabled = currentPage === 0;
-							        nextButton.disabled = currentPage >= totalPages - 1;
+							        console.log("currentPage= "+currentPage);
+							        if( currentPage === 0 && prevButton!=null){
+								        prevButton.disabled;								       
+							        }
+							        if(currentPage >= totalPages - 1 && nextButton!=null ){
+										 nextButton.disabled;
+									}
 							        
 							    }
 								
 								
-						        
-							    prevButton.addEventListener('click', () => {
-							        if (currentPage > 0) {
-							            currentPage--;
-							            renderPage();
-							        }
-							    });
+						        if(prevButton!=null){
+								    prevButton.addEventListener('click', () => {
+								        if (currentPage > 0) {
+								            currentPage--;
+								            renderPage();
+								        }
+								    });
+							    }
 							
-							    nextButton.addEventListener('click', () => {
-									console.log("nextButton");
-							        //const totalCards = reviewsWithUserName.length;
-							        const totalCards = Object.keys(reviewsWithUserName).length;
-							        const totalPages = Math.ceil(totalCards / cardsPerPage);
-							        if (currentPage < totalPages - 1) {
-							            currentPage++;
-							            renderPage();
-							        }
-							    });
+								if(nextButton!=null){
+								    nextButton.addEventListener('click', () => {
+										console.log("nextButton");
+								        //const totalCards = reviewsWithUserName.length;
+								        const totalCards = Object.keys(reviewsWithUserName).length;
+								        const totalPages = Math.ceil(totalCards / cardsPerPage);
+								        if (currentPage < totalPages - 1) {
+								            currentPage++;
+								            renderPage();
+								        }
+								    });
+							    }
 								   								    
 								
 							    // 初期表示
@@ -606,8 +614,8 @@
 						    <!-- カードがここに追加されます -->
 						</div>
 						<div class="pagination-controls">
-						    <button id="prevButton" class="btn text-white shadow-sm w-100 samuraitravel-btn">前へ</button>
-						    <button id="nextButton" class="btn text-white shadow-sm w-100 samuraitravel-btn" >次へ</button>
+						    <button th:if="${reviews.size()>5}" id="prevButton" class="btn text-white shadow-sm w-100 samuraitravel-btn">前へ</button>
+						    <button th:if="${reviews.size()>5}"id="nextButton" class="btn text-white shadow-sm w-100 samuraitravel-btn" >次へ</button>
 						</div>
 						 
 						
