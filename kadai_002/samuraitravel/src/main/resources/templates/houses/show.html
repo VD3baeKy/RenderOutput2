@@ -208,8 +208,8 @@
 				<!-- Revueカード追加ココカラ -->
 				<div>
  					<h3 th:text="'［' + ${house.getName()}+ '］のレビュー　全 ' + ${reviews.size()} +' 件'"></h3>
- 					<div style="padding: 20px;">
-					 	<button th:if="${reviews.size()>0}" id="reviewLinkButton" class="btn text-white shadow-sm w-100 samuraitravel-btn">すべてのレビューを表示する</button>
+ 					<div th:if="${reviews.size()>0}" style="padding: 20px;">
+					 	<button id="reviewLinkButton" class="btn text-white shadow-sm w-100 samuraitravel-btn">すべてのレビューを表示する</button>
 					 	<script type="text/javascript" th:inline="javascript">
 						    document.getElementById('reviewLinkButton').onclick = function() {
 								var houseID= /*[[${houseID}]]*/ ;
@@ -220,7 +220,7 @@
 					 </div>
 					<!-- <div th:if="${!hasWrittenReview}"> -->
 					<div th:if="${loginwas==true}" style="padding: 20px;">
-					 	<button id="reviewWriteButton" class="btn text-white shadow-sm w-100 samuraitravel-btn" th:if="${!hasWrittenReview}">レビューを投稿する</button>
+					 	<center><button id="reviewWriteButton" class="btn text-white shadow-sm w-25 samuraitravel-btn" th:if="${!hasWrittenReview}" onclick="writeView()">レビューを投稿する</button></center>
 					 	<script>
 							window.onload = function() {
 							    document.getElementById('reviewWriteButton').onclick = function() {
@@ -317,7 +317,7 @@
 						<script type="text/javascript" th:inline="javascript">
 							window.onload = function() {
 								/***** DEBUG MODE *****/
-								var debugging=true;
+								var debugging=false;
 								/**********************/
 								
 								var reviewToSome;
@@ -386,7 +386,7 @@
 							            const card = document.createElement('div');
 							            card.className = 'review-card';
 							            // クリックイベントを設定
-										//card.setAttribute('onclick', 'contentViewModal()');
+										card.setAttribute('onclick', 'contentView()');
 										
 							           if(currentUserIdData==userId){
 									        card.innerHTML = `
@@ -439,15 +439,15 @@
 							        // ボタンの有効/無効を設定
 							        console.log("currentPage= "+currentPage);
 							        if( currentPage === 0 && prevButton!=null){
-								        prevButton.disabled;								       
+								        prevButton.disabled = true;								       
 							        }else{
-									prevButton.disabled = false;	
-								}
+										if( prevButton!=null)prevButton.disabled = false;	
+									}
 							        if(currentPage >= totalPages - 1 && nextButton!=null ){
-									 nextButton.disabled = true;
-								}else{
-									nextButton.disabled = false;
-								}
+										 nextButton.disabled = true;
+									}else{
+										if( prevButton!=null)nextButton.disabled = false;
+									}
 							        
 							    }
 								
@@ -651,6 +651,25 @@
 				    $('#deleteModal').modal('hide');
 				    $('#writeModal').modal('hide');
 				    $('#contentModal').modal('hide');
+			}
+			// カードをクリックしたときのイベントリスナーを設定
+			function contentView() {
+				document.querySelectorAll('.review-card').forEach(card => {
+			        card.addEventListener('click', function(event) {
+			            console.log(" review-card clicked");
+			            // 編集や削除のリンクをクリックした場合は、カードのクリックイベントを発火させない
+			            if (event.target.matches('.edit-link, .delete-link')) {
+			                return;
+			            }
+			            console.log("BIG");
+			            const content = this.querySelector('.content-text').textContent; // 特定のクラスを持つ要素を取得
+			            document.getElementById('modalContent').textContent = content; // モーダルにコンテンツを設定
+			            $('#contentModal').modal('show'); // モーダルを表示
+			        });
+			    });
+			}
+			function writeView() {
+	            $('#writeModal').modal('show'); // モーダルを表示
 			}
 			/*
 			// カードをクリックしたときのイベントリスナーを設定]
