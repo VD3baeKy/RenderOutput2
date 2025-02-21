@@ -208,7 +208,7 @@
 				<!-- Revueカード追加ココカラ -->
 				<div>
  					<h3 th:text="'［' + ${house.getName()}+ '］のレビュー　全 ' + ${reviews.size()} +' 件'"></h3>
- 					<div th:if="${reviews.size()>0}" style="padding: 20px;">
+ 					<div th:if="${reviews.size()>5}" style="padding: 20px;">
 					 	<button id="reviewLinkButton" class="btn text-white shadow-sm w-100 samuraitravel-btn">すべてのレビューを表示する</button>
 					 	<script type="text/javascript" th:inline="javascript">
 						    document.getElementById('reviewLinkButton').onclick = function() {
