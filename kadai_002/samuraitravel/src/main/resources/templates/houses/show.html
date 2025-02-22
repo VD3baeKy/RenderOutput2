@@ -395,7 +395,7 @@
 											    <h5 class="content-text" style="display: none;">${content}</h5>
 											    <h5>${content.length > 10 ? content.substring(0, 7) + '...' : content}</h5>
 											    <div class="tooltip">${content}</div> 
-										        <a href="#" class="edit-link" data-id="${reviewid}" data-house-id="${houseid}" data-content="${content}" data-house-name="${houseName}" data-rating="${ratingNum}" data-toggle="modal" data-target="#editModal">編集</a>
+										        <a href="#" class="edit-link" data-id="${reviewid}" data-house-id="${houseid}" data-content="${content}" data-house-name="${houseName}" data-rating="${ratingNum}" data-toggle="modal" data-target="#editModal" onclick="editView()">編集</a>
 										        <a href="#" class="delete-link" data-id="${reviewid}" data-house-id="${houseid}" data-content="${content}" data-house-name="${houseName}" data-rating="${ratingNum}" data-toggle="modal" data-target="#deleteModal">削除</a>
 											`;
 										}else{
@@ -432,6 +432,36 @@
 										            $('#contentModal').modal('show'); // モーダルを表示
 										        });
 										    });
+										});
+										
+										document.querySelectorAll('.edit-link').forEach(button => {
+											button.addEventListener('click', function() {
+												const reviewIdData = this.getAttribute('data-id');
+												const contentData = this.getAttribute('data-content');
+												const houseIdData = this.getAttribute('data-house-id');
+												const houseNameData = this.getAttribute('data-house-name');
+												const ratingData = this.getAttribute('data-rating');
+												//const actionkamen = "/houses/" + houseIdData + "/review/" + reviewIdData + "/delete";
+												const actionkamen1 = "/houses/" + houseIdData + "/review/" + "delete";
+												const actionkamen2 = "/houses/" + houseIdData + "/review/" + "edit";
+												
+												if(debugging==true){
+													console.log("editContent= "+contentData);
+													console.log("editRatingNumber= "+ratingData);
+													console.log("actionkamen1= "+actionkamen1);
+													console.log("actionkamen2= "+actionkamen2);;
+												}
+												document.getElementById('editContent').value = contentData;
+												document.getElementById('editRatingNumber').value = ratingData;
+												//document.getElementById('actioncamen').action = actionkamen;
+												
+												// モーダルを表示
+												$('#editModal').modal('show'); // jQueryを使用してモーダルを表示
+												document.getElementById('actioncamen1').action = actionkamen1;
+												document.getElementById('actioncamen2').action = actionkamen2;
+												document.getElementById('mendoina1').value = reviewIdData;
+												document.getElementById('mendoina2').value = reviewIdData;
+											});
 										});
 							            
 							        }
@@ -668,6 +698,38 @@
 			            $('#contentModal').modal('show'); // モーダルを表示
 			        });
 			    });
+			}
+			// 編集をクリックしたときのイベントリスナーを設定
+			function editView() {
+				document.querySelectorAll('.edit-link').forEach(button => {
+					button.addEventListener('click', function() {
+						const reviewIdData = this.getAttribute('data-id');
+						const contentData = this.getAttribute('data-content');
+						const houseIdData = this.getAttribute('data-house-id');
+						const houseNameData = this.getAttribute('data-house-name');
+						const ratingData = this.getAttribute('data-rating');
+						//const actionkamen = "/houses/" + houseIdData + "/review/" + reviewIdData + "/delete";
+						const actionkamen1 = "/houses/" + houseIdData + "/review/" + "delete";
+						const actionkamen2 = "/houses/" + houseIdData + "/review/" + "edit";
+						
+						if(debugging==true){
+							console.log("editContent= "+contentData);
+							console.log("editRatingNumber= "+ratingData);
+							console.log("actionkamen1= "+actionkamen1);
+							console.log("actionkamen2= "+actionkamen2);;
+						}
+						document.getElementById('editContent').value = contentData;
+						document.getElementById('editRatingNumber').value = ratingData;
+						//document.getElementById('actioncamen').action = actionkamen;
+						
+						// モーダルを表示
+						$('#editModal').modal('show'); // jQueryを使用してモーダルを表示
+						document.getElementById('actioncamen1').action = actionkamen1;
+						document.getElementById('actioncamen2').action = actionkamen2;
+						document.getElementById('mendoina1').value = reviewIdData;
+						document.getElementById('mendoina2').value = reviewIdData;
+					});
+				});
 			}
 			function writeView() {
 	            $('#writeModal').modal('show'); // モーダルを表示
