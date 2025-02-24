@@ -82,41 +82,41 @@ CREATE OR REPLACE FUNCTION update_timestamp()
 RETURNS TRIGGER AS $$
 BEGIN
   NEW.updated_at = NOW();
-  RETURN NEW
-END
-$$ language 'plpgsql';
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
 CREATE TRIGGER houses_table_modtime
 BEFORE UPDATE ON houses
 FOR EACH ROW
-EXECUTE PROCEDURE update_timestamp();
+EXECUTE FUNCTION update_timestamp();
 
 CREATE TRIGGER roles_table_modtime
 BEFORE UPDATE ON roles
 FOR EACH ROW
-EXECUTE PROCEDURE update_timestamp();
+EXECUTE FUNCTION update_timestamp();
 
 CREATE TRIGGER users_table_modtime
 BEFORE UPDATE ON users
 FOR EACH ROW
-EXECUTE PROCEDURE update_timestamp();
+EXECUTE FUNCTION update_timestamp();
 
 CREATE TRIGGER verification_tokens_table_modtime
 BEFORE UPDATE ON verification_tokens
 FOR EACH ROW
-EXECUTE PROCEDURE update_timestamp();
+EXECUTE FUNCTION update_timestamp();
 
 CREATE TRIGGER reservations_table_modtime
 BEFORE UPDATE ON reservations
 FOR EACH ROW
-EXECUTE PROCEDURE update_timestamp();
+EXECUTE FUNCTION update_timestamp();
 
 CREATE TRIGGER reviews_tokens_table_modtime
 BEFORE UPDATE ON reviews
 FOR EACH ROW
-EXECUTE PROCEDURE update_timestamp();
+EXECUTE FUNCTION update_timestamp();
 
 CREATE TRIGGER loves_tokens_table_modtime
 BEFORE UPDATE ON loves
 FOR EACH ROW
-EXECUTE PROCEDURE update_timestamp();
+EXECUTE FUNCTION update_timestamp();
