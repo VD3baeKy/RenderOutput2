@@ -75,9 +75,7 @@ CREATE TABLE IF NOT EXISTS loves (
      house_id INT NOT NULL,
      user_id INT NOT NULL,
      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-     updated_at TIMESTAMP NOT NULL DEFAULT,
-     FOREIGN KEY (house_id) REFERENCES houses (id),
-     FOREIGN KEY (user_id) REFERENCES users (id)
+     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE OR REPLACE FUNCTION update_timestamp()
