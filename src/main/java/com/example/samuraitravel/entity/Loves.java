@@ -23,18 +23,23 @@ public class Loves {
     @Column(name = "id")
     private Integer id;
     
+    @Column(name = "house_id")
+    private Integer houseid;
+    
+    @Column(name = "user_id")
+    private Integer userid;
+    
+    /*
     @ManyToOne
-    @JoinColumn(name = "house_id")
+    @JoinColumn(name = "houseid")
     private House house; 
     
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOneA
+    @JoinColumn(name = "userid")
     private User user;
+    */
     
     @Column(name = "created_at", insertable = false, updatable = false)
     private Timestamp createdAt;
-    
-    @Column(name = "updated_at", insertable = false, updatable = false)
-    private Timestamp updatedAt;
 
 }
