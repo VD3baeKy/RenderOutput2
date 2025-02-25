@@ -77,6 +77,7 @@ CREATE TABLE IF NOT EXISTS loves (
      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+/*
 CREATE OR REPLACE FUNCTION update_timestamp()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -104,6 +105,7 @@ CREATE TRIGGER reservations_table_modtime
 BEFORE UPDATE ON reservations
 FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp();
+*/
 
 CREATE TRIGGER reviews_tokens_table_modtime
 BEFORE UPDATE ON reviews
