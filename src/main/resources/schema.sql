@@ -88,25 +88,25 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER houses_table_modtime
 BEFORE UPDATE ON houses
 FOR EACH ROW
-EXECUTE FUNCTION update_timestamp();
+EXECUTE PROCEDURE update_timestamp();
 
 CREATE TRIGGER users_table_modtime
 BEFORE UPDATE ON users
 FOR EACH ROW
-EXECUTE FUNCTION update_timestamp();
+EXECUTE PROCEDURE update_timestamp();
 
 CREATE TRIGGER verification_tokens_table_modtime
 BEFORE UPDATE ON verification_tokens
 FOR EACH ROW
-EXECUTE FUNCTION update_timestamp();
+EXECUTE PROCEDURE update_timestamp();
 
 CREATE TRIGGER reservations_table_modtime
 BEFORE UPDATE ON reservations
 FOR EACH ROW
-EXECUTE FUNCTION update_timestamp();
+EXECUTE PROCEDURE update_timestamp();
 
 CREATE TRIGGER reviews_tokens_table_modtime
 BEFORE UPDATE ON reviews
 FOR EACH ROW
-EXECUTE FUNCTION update_timestamp();
+EXECUTE PROCEDURE update_timestamp();
 
