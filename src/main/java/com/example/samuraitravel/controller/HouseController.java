@@ -29,11 +29,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.samuraitravel.entity.House;
+import com.example.samuraitravel.entity.Loves;
 import com.example.samuraitravel.entity.Review;
 import com.example.samuraitravel.entity.User;
 import com.example.samuraitravel.form.ReservationInputForm;
 import com.example.samuraitravel.form.ReviewRegisterForm;
 import com.example.samuraitravel.repository.HouseRepository;
+import com.example.samuraitravel.repository.LovesRepository;
 import com.example.samuraitravel.repository.ReviewsRepository;
 import com.example.samuraitravel.repository.RoleRepository;
 import com.example.samuraitravel.repository.UserRepository;
@@ -52,6 +54,7 @@ public class HouseController {
     private final ReviewsRepository reviewsRepository; // ReviewsRepositoryの追加
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final LovesRepository lovesRepository;
     
     @Autowired
     private ReviewsService reviewService;
@@ -59,12 +62,13 @@ public class HouseController {
     @Autowired
     private UserService userService; // UserService を追加
     
-    public HouseController(HouseRepository houseRepository0, UserRepository userRepository0, ReviewsRepository reviewsRepository0) {
+    public HouseController(HouseRepository houseRepository0, UserRepository userRepository0, ReviewsRepository reviewsRepository0, LovesRepository lovesRepository0) {
         this.houseRepository = houseRepository0;
         this.userRepository = userRepository0; // UserRepositoryの初期化
         this.reviewsRepository = reviewsRepository0; // ReviewsRepositoryの初期化
 		this.roleRepository = null;
 		this.passwordEncoder = null;
+		this.lovesRepository = lovesRepository0;		
     }     
   
     @GetMapping
@@ -72,7 +76,7 @@ public class HouseController {
                         @RequestParam(name = "area", required = false) String area,
                         @RequestParam(name = "price", required = false) Integer price,  
                         @RequestParam(name = "order", required = false) String order,
-                        @PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.ASC) Pageable pageable,
+                        @PageableDefault(page = 0, size = 5, sort = "id", direction = Direction.ASC) Pageable pageable,
                         Model model){
 
         Page<House> housePage;
@@ -123,6 +127,7 @@ public class HouseController {
         //UserDetailsImpl userDetails = null;
     	UserDetailsImpl userDetails=null;
     	Boolean loginwas = false;
+    	Boolean likeThis = false;
     	
     	try {
     		userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -154,9 +159,23 @@ public class HouseController {
                     .stream()
                     .anyMatch(r -> r.getUserid().equals(userDetailsCopy.getUserId())); // ユーザーのレビューがあるか確認
             model.addAttribute("currentUserId", userDetails.getUserId());
+            
+            //お気に入り情報
+            Pageable pageableLove = null;
+            System.out.println("  Loves Size = " + lovesRepository.findByUseridAndHouseidOrderByCreatedAtDesc(userDetails.getUserId(), id, pageableLove).getContent().size());
+            System.out.println("  Loves Tostring = " + lovesRepository.findByUseridAndHouseidOrderByCreatedAtDesc(userDetails.getUserId(), id, pageableLove).getContent().toString());
+            if (lovesRepository.findByUseridAndHouseidOrderByCreatedAtDesc(userDetails.getUserId(), id, pageableLove).getContent().size()>0 ) {
+            	likeThis = true;
+            }else {
+            	likeThis = false;
+            }
+            
         } else {
             System.out.println(" ##### NOT LOGIN #####");
         }
+        
+        System.out.println("  Loves likeThis = " + likeThis);
+        model.addAttribute("likeThis", likeThis);
 
         ReviewsService reviewsService = new ReviewsService(reviewsRepository);
         reviewsService.refreshReviews();
@@ -237,8 +256,9 @@ public class HouseController {
             model.addAttribute("hasWrittenReview", hasWrittenReview);
             if (userLogined != null) {
                 model.addAttribute("userLogined", userLogined);
-            }
-        }
+            };
+        };
+	    		 
         
         return "houses/show";
     }
@@ -282,7 +302,7 @@ public class HouseController {
 	    	 redirectAttributes.addFlashAttribute("successMessage", "レビューを削除しました。");
  	     }else {
  	    	redirectAttributes.addFlashAttribute("successMessage", "レビュー削除エラー");
- 	     }
+ 	     } 	    
     	 
     	 //return "houses/show";
     	 //return "redirect:/houses/{houseId}";
@@ -381,6 +401,120 @@ public class HouseController {
          reviewService.write(reviewRegisterForm);
          redirectAttributes.addFlashAttribute("successMessage", "レビューを登録しました。");    
          
+         String retStr = "redirect:/houses/" + houseId;
+ 	     return retStr;
+     }
+     
+     
+     @GetMapping("/{houseId}/favorite")
+     public String favorite(@PathVariable(name = "houseId") Integer houseId) {
+    	 Pageable pageable = null;
+    	 String urlStr = "/{houseId}/#";
+    	 UserDetailsImpl userDetails=null;
+      	 try {
+      		userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+              if (authentication != null && authentication.isAuthenticated()) {
+                  userDetails = (UserDetailsImpl) authentication.getPrincipal();
+              } else {
+                  // 未認証の場合の処理
+            	  return "/{houseId}/#";
+		      }
+		 } catch (ClassCastException e) {
+		      // UserDetailsImplへのキャストに失敗した場合の処理
+		 }
+		
+		 if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetailsImpl) {
+		      userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		 }
+		  
+		 if (userDetails != null) {
+		  	UserDetailsImpl userDetailsCopy = userDetails;
+	  		if (lovesRepository.findByUseridAndHouseidOrderByCreatedAtDesc(userDetails.getUserId(), houseId, pageable).getContent().size()>0 ) {
+	  			urlStr = "/" + houseId + "/favorite/" + userDetails.getUserId() + "/delete";
+            }else {
+            	urlStr = "/" + houseId + "/favorite/" + userDetails.getUserId() + "/add";
+            }
+
+		 }
+		 return urlStr;
+     }
+     
+     //@PostMapping("/{houseId}/favorite/{userId}/add")
+     @GetMapping("/{houseId}/favorite/{userId}/add")
+     public String add(
+    		 @PathVariable(name = "houseId") Integer houseId,
+    		 @PathVariable(name = "userId") Integer userId,
+    		 RedirectAttributes redirectAttributes
+	 ) {
+    	// エンティティに変換
+         Loves loves = new Loves();
+         loves.setHouseid(houseId);
+         loves.setUserid(userId);
+         
+         lovesRepository.save(loves);
+         redirectAttributes.addFlashAttribute("successMessage", "	お気に入り登録しました。");    
+         
+         String retStr = "redirect:/houses/" + houseId;
+ 	     return retStr;
+     }
+     
+     //@PostMapping("/{houseId}/favorite/{userId}/remove")
+     @GetMapping("/{houseId}/favorite/{userId}/remove")
+     public String remove(
+    		 @PathVariable(name = "houseId") Integer houseId,
+    		 @PathVariable(name = "userId") Integer userId,
+    		 RedirectAttributes redirectAttributes
+	 ) {
+    	 System.out.println(" ##### favorite #####  DELETE");
+    	Pageable pageable = null;
+    	UserDetailsImpl userDetails=null;     	
+     	try {
+     		userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+     		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+     		 System.out.println(" ##### favorite #####  DELETE 1");
+             if (authentication != null && authentication.isAuthenticated()) {
+                 userDetails = (UserDetailsImpl) authentication.getPrincipal();
+                 System.out.println(" ##### favorite #####  DELETE 2");
+             } else {
+                 // 未認証の場合の処理
+            	 System.out.println(" ##### favorite #####  DELETE 3");
+             }
+         } catch (ClassCastException e) {
+             // UserDetailsImplへのキャストに失敗した場合の処理
+        	 System.out.println(" ##### favorite #####  DELETE 4");
+         }
+     	
+         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetailsImpl) {
+        	 System.out.println(" ##### favorite #####  DELETE 5");
+             userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+         }
+         
+         if (userDetails != null) {
+        	 System.out.println(" ##### favorite #####  DELETE 6");
+         	UserDetailsImpl userDetailsCopy = userDetails;
+         	if(userId!=userDetails.getUserId()) {
+         		 System.out.println(" ##### favorite #####  DELETE 7");
+         		throw new AccessDeniedException("You do not have permission to remove this favorite.");
+	         }else{
+	        	 System.out.println(" ##### favorite #####  DELETE 8");
+	         	// エンティティに変換
+	        	 Loves loves = new Loves();
+	        	 if(lovesRepository.findByUseridAndHouseidOrderByCreatedAtDesc(userDetails.getUserId() ,houseId ,pageable).getContent().size()==1) {
+	        		 System.out.println(" ##### favorite #####  DELETE 9");
+	        		 loves = lovesRepository.findByUseridAndHouseidOrderByCreatedAtDesc(userDetails.getUserId() ,houseId ,pageable).getContent().get(0);
+	        	 }else {
+	        		 System.out.println(" ##### favorite #####  DELETE 10");
+	        		 throw new AccessDeniedException("Many favorite.");
+	        	 }
+	        	 
+	        	 System.out.println(" ##### favorite #####  DELETE 11");
+	        	 System.out.println("   loves.getId()= " + loves.getId());
+	        	 
+	             lovesRepository.deleteById(loves.getId());
+	             redirectAttributes.addFlashAttribute("successMessage", "	お気に入り解除しました。");
+	         }
+         }
          String retStr = "redirect:/houses/" + houseId;
  	     return retStr;
      }
