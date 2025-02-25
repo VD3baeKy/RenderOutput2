@@ -74,8 +74,7 @@ CREATE TABLE IF NOT EXISTS loves (
      id SERIAL PRIMARY KEY,
      house_id INT NOT NULL,
      user_id INT NOT NULL,
-     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE OR REPLACE FUNCTION update_timestamp()
@@ -88,11 +87,6 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER houses_table_modtime
 BEFORE UPDATE ON houses
-FOR EACH ROW
-EXECUTE FUNCTION update_timestamp();
-
-CREATE TRIGGER roles_table_modtime
-BEFORE UPDATE ON roles
 FOR EACH ROW
 EXECUTE FUNCTION update_timestamp();
 
@@ -116,7 +110,3 @@ BEFORE UPDATE ON reviews
 FOR EACH ROW
 EXECUTE FUNCTION update_timestamp();
 
-CREATE TRIGGER loves_tokens_table_modtime
-BEFORE UPDATE ON loves
-FOR EACH ROW
-EXECUTE FUNCTION update_timestamp();
