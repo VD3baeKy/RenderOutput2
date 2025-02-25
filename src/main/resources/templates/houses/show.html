@@ -47,22 +47,27 @@
 					<div class="col-xxl-9 col-xl-10 col-lg-11">
 						<nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 							<div class="d-flex justify-content-between align-items-center" style="background-color: #e9ecef; padding: 10px;">
-							<ol class="breadcrumb mb-0">
-								<li class="breadcrumb-item">
-									<a th:href="@{/}">
-										ホーム
-									</a>
-								</li>
-								<li class="breadcrumb-item">
-									<a th:href="@{/houses}">
-										民宿一覧
-									</a>
-								</li>
-								<li class="breadcrumb-item active" aria-current="page">
-									民宿詳細
-								</li>
-							</ol>
-							<div sec:authorize="!isAnonymous()">&#9825お気に入り追加</div>	
+								<ol class="breadcrumb mb-0">
+									<li class="breadcrumb-item">
+										<a th:href="@{/}">
+											ホーム
+										</a>
+									</li>
+									<li class="breadcrumb-item">
+										<a th:href="@{/houses}">
+											民宿一覧
+										</a>
+									</li>
+									<li class="breadcrumb-item active" aria-current="page">
+										民宿詳細
+									</li>
+								</ol>
+								<div class="likethis" sec:authorize="!isAnonymous()" th:if="${likeThis}" likedata="true">
+									<a th:href="@{__${house.getId()}__/favorite/__${currentUserId}__/remove}">&#9829;お気に入り解除</a>
+								</div>	
+								<div sec:authorize="!isAnonymous()" th:if="${!likeThis}" likedata="false">
+									<a th:href="@{__${house.getId()}__/favorite/__${currentUserId}__/add}">&#9825;お気に入り追加</a>										
+								</div>	
 							</div>					
 						</nav>
 						
@@ -493,7 +498,7 @@
 												document.getElementById('mendoina2').value = reviewIdData;
 											});
 										});
-							            
+
 							        }
 							
 							        // ボタンの有効/無効を設定
@@ -533,6 +538,20 @@
 								        }
 								    });
 							    }
+							    
+								/*		
+								document.querySelectorAll('.likethis').forEach(div => {
+								    div.addEventListener('click', function() {
+								        alert('divがクリックされました！');
+								        const likedataValue = this.getAttribute('likedata');
+								        if(likedataValue=="true"){
+											
+										}else{
+											
+										}
+								    });
+								});
+								*/
 								   								    
 								
 							    // 初期表示
