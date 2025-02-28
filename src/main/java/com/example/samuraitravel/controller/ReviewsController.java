@@ -63,6 +63,7 @@ public class ReviewsController {
             @RequestParam(name = "price", required = false) Integer price,  
             @RequestParam(name = "order", required = false) String order,
             @RequestParam(name = "reviewhouseId", required = false) Integer reviewhouseId,
+            @RequestParam(name = "uid", required = false) boolearn uid,
             @PageableDefault(page = 0, size = 5, sort = "id", direction = Direction.ASC) Pageable pageable,
             Model model
     ){
@@ -107,7 +108,15 @@ public class ReviewsController {
     			System.out.println("   [REVIEW-INDEX] @@@@@ 8");
     			reviewPage = reviewsRepository.findByHousesIdOrderByReviewCreatedAtDesc(reviewhouseId, pageable);
     		}
-    	} else {
+    	} else if (uid) {
+    		if ("priceAsc".equals(order)) {
+    			System.out.println("   [REVIEW-INDEX] @@@@@ 8.4");
+    			reviewPage = reviewsRepository.findByUserIdOrderByHousesPriceAsc(userid, pageable);
+            else {	
+    			System.out.println("   [REVIEW-INDEX] @@@@@ 8.6");
+    			reviewPage = reviewsRepository.findByUserIdOrderByReviewCreatedAtDesc(userid, pageable);
+    		}
+        }else {
             if ("priceAsc".equals(order)) {
             	System.out.println("   [REVIEW-INDEX] @@@@@ 9");
                 reviewPage = reviewsRepository.findAllByOrderByHousesPriceAsc(pageable);
