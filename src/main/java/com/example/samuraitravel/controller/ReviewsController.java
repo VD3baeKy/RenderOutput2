@@ -70,7 +70,7 @@ public class ReviewsController {
         Integer uid = 0;
         if(uid0!=null){
             uid = uid0;
-        )
+        }
         
     	System.out.println("   [REVIEW-INDEX] A reviewhouseId= " + reviewhouseId);
     	if(reviewhouseId==null) {
