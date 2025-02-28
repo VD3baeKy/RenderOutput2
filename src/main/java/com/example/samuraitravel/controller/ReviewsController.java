@@ -133,7 +133,7 @@ public class ReviewsController {
     		if ("priceAsc".equals(order)) {
     			System.out.println("   [REVIEW-INDEX] @@@@@ 8.4");
     			reviewPage = reviewsRepository.findByUserIdOrderByHousesPriceAsc(userDetailsCopy.getUserId(), pageable);
-            else {	
+            }else {	
     			System.out.println("   [REVIEW-INDEX] @@@@@ 8.6");
     			reviewPage = reviewsRepository.findByUserIdOrderByReviewCreatedAtDesc(userDetailsCopy.getUserId(), pageable);
     		}
