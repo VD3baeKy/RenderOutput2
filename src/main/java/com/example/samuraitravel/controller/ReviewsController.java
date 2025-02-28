@@ -173,7 +173,7 @@ public class ReviewsController {
         model.addAttribute("order", order);
         model.addAttribute("reviewhouseId", reviewhouseId);
         
-        UserDetailsImpl userDetails=null;
+        //UserDetailsImpl userDetails=null;
         Boolean loginwas = false;
     	try {
     		userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
