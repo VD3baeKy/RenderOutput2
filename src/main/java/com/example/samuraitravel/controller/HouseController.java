@@ -290,12 +290,20 @@ public class HouseController {
     	 // レビューをデータベースから取得
     	 Review existingReview = reviewsRepository.findById(reviewId).orElseThrow(() -> new NoSuchElementException("Review not found with id " + reviewId));
     	 // ユーザーがレビューの所有者であることを確認
- 	     if (!existingReview.getUserid().equals(userDetails.getUserId())) {
- 	    	System.out.println("ユーザーがレビューの所有者であることを確認= NG");
- 	         throw new AccessDeniedException("You do not have permission to edit this review.");
- 	     }
- 	     System.out.println("ユーザーがレビューの所有者であることを確認= OK");
- 	     
+	     	if (!existingReview.getUserid().equals(2)) {
+	 	        System.out.println("ユーザーは管理者ではありません。");
+     		} else if (!existingReview.getUserid().equals(userDetails.getUserId())) {
+	 	    	System.out.println("ユーザーがレビューの所有者であることを確認= NG");
+	 	         throw new AccessDeniedException("You do not have permission to edit this review.");
+		}
+     		
+	     	if (existingReview.getUserid().equals(2)) {
+			System.out.println("ユーザーが管理者であることを確認= OK");
+		}
+		if (existingReview.getUserid().equals(userDetails.getUserId())) {
+		     	System.out.println("ユーザーがレビューの所有者であることを確認= OK");
+		}
+	     
  	     if(valueDelete.contains("delete") && valueDelete.length()==6) {
 	 	     //レビュー削除実行
 	    	 reviewsRepository.deleteById(reviewId);	    	 
