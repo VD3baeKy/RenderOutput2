@@ -72,7 +72,26 @@ public class ReviewsController {
     		reviewhouseId=0;
     	}
     	System.out.println("   [REVIEW-INDEX] B reviewhouseId= " + reviewhouseId);
-    	
+
+        UserDetailsImpl userDetails=null;
+   	
+    	try {
+    		userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null && authentication.isAuthenticated()) {
+                userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            } else {
+                // 未認証の場合の処理
+            }
+        } catch (ClassCastException e) {
+            // UserDetailsImplへのキャストに失敗した場合の処理
+        }
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetailsImpl) {
+            userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }
+
+
+            
         Page<ReviewHouseDTO> reviewPage;        
         
         
@@ -108,13 +127,15 @@ public class ReviewsController {
     			System.out.println("   [REVIEW-INDEX] @@@@@ 8");
     			reviewPage = reviewsRepository.findByHousesIdOrderByReviewCreatedAtDesc(reviewhouseId, pageable);
     		}
-    	} else if (uid) {
+    	} else if (uid && userDetails != null) {
+        	UserDetailsImpl userDetailsCopy = userDetails;
+            System.out.println(userDetails.getUserId()); // 現在ログインしているユーザーのuserId
     		if ("priceAsc".equals(order)) {
     			System.out.println("   [REVIEW-INDEX] @@@@@ 8.4");
-    			reviewPage = reviewsRepository.findByUserIdOrderByHousesPriceAsc(userid, pageable);
+    			reviewPage = reviewsRepository.findByUserIdOrderByHousesPriceAsc(userDetailsCopy.getUserId(), pageable);
             else {	
     			System.out.println("   [REVIEW-INDEX] @@@@@ 8.6");
-    			reviewPage = reviewsRepository.findByUserIdOrderByReviewCreatedAtDesc(userid, pageable);
+    			reviewPage = reviewsRepository.findByUserIdOrderByReviewCreatedAtDesc(userDetailsCopy.getUserId(), pageable);
     		}
         }else {
             if ("priceAsc".equals(order)) {
