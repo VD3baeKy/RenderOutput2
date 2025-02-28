@@ -2,8 +2,6 @@
 
 * [デモサイト “SAMURAI Travel”](https://renderoutput.onrender.com/)のソースコードです。
 
-[デモサイト “SAMURAI Travel”](https://renderoutput.onrender.com/)
-
 [https://renderoutput.onrender.com/](https://renderoutput.onrender.com/)
 
 
