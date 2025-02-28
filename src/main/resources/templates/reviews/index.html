@@ -301,6 +301,29 @@
 									                    </div>
 									                </a>
 									            `;
+									        }else if(currentUserIdData==2){
+									            reviewElement.innerHTML = `
+									                <a href="/houses/${reviewDTO.house.id}" class="link-dark samuraitravel-card-link">
+									                    <div class="card h-100">
+									                        <div class="row g-0">
+									                            <!-- 画像の表示部分 -->
+									                        </div>
+									                        <div class="col-md-12">
+									                            <div class="card-body">
+									                                <h3 class="card-title mb-3">${reviewDTO.house.name}</h3>
+									                                <h5>${formattedDate}</h5>
+									                                <h5>${ratingStars}</h5>
+									                                <h5>${reviewDTO.review.reviewText}</h5>
+									                                <p>${reviewDTO.user.name}</p>
+									                                
+																	<a href="#" class="delete-link" data-id="${reviewDTO.review.id}" data-house-id="${reviewDTO.review.houseid}" data-content="${reviewDTO.review.reviewText}" data-house-name="${reviewDTO.house.name}" data-rating="${reviewDTO.review.rating}" data-toggle="modal" data-target="#deleteModal">
+																		削除
+																	</a>
+									                            </div>
+									                        </div>
+									                    </div>
+									                </a>
+									            `;
 									        }else{
 												reviewElement.innerHTML = `
 									                <a href="/houses/${reviewDTO.house.id}" class="link-dark samuraitravel-card-link">
