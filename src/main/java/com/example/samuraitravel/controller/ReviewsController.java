@@ -63,10 +63,15 @@ public class ReviewsController {
             @RequestParam(name = "price", required = false) Integer price,  
             @RequestParam(name = "order", required = false) String order,
             @RequestParam(name = "reviewhouseId", required = false) Integer reviewhouseId,
-            @RequestParam(name = "uid", required = false) Integer uid,
+            @RequestParam(name = "uid", required = false) Integer uid0,
             @PageableDefault(page = 0, size = 5, sort = "id", direction = Direction.ASC) Pageable pageable,
             Model model
     ){
+        Integer uid = 0;
+        if(uid0!=null){
+            uid = uid0;
+        )
+        
     	System.out.println("   [REVIEW-INDEX] A reviewhouseId= " + reviewhouseId);
     	if(reviewhouseId==null) {
     		reviewhouseId=0;
