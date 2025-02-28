@@ -67,6 +67,14 @@ public interface ReviewsRepository extends JpaRepository<Review, Integer> {
     @Query("SELECT new com.example.samuraitravel.repository.ReviewHouseDTO(r, h, u) FROM Review r JOIN House h ON r.houseId = h.id JOIN User u ON r.userId = u.id WHERE h.price <= ?1 ORDER BY r.updatedAt DESC")
     public Page<ReviewHouseDTO> findByHousesPriceLessThanEqualOrderByReviewCreatedAtDesc(Integer keyword1, Pageable pageable);
 
+    // ユーザーIDで検索して、価格の安い順でソート
+    @Query("SELECT new com.example.samuraitravel.repository.ReviewHouseDTO(r, h, u) FROM Review r JOIN House h ON r.houseId = h.id JOIN User u ON r.userId = u.id WHERE r.userId = ?1 ORDER BY h.price ASC")
+    public Page<ReviewHouseDTO> findByUserIdOrderByHousesPriceAsc(Integer keyword1, Pageable pageable);
+
+    // ユーザーIDで検索して、レビューの新しい順でソート
+    @Query("SELECT new com.example.samuraitravel.repository.ReviewHouseDTO(r, h, u) FROM Review r JOIN House h ON r.houseId = h.id JOIN User u ON r.userId = u.id WHERE r.userId = ?1 ORDER BY r.updatedAt DESC")
+    public Page<ReviewHouseDTO> findByUserIdOrderByReviewCreatedAtDesc(Integer keyword1, Pageable pageable);
+
     // 全てのレビューを、価格の安い順でソート
     @Query("SELECT new com.example.samuraitravel.repository.ReviewHouseDTO(r, h, u) FROM Review r JOIN House h ON r.houseId = h.id JOIN User u ON r.userId = u.id ORDER BY h.price ASC")
     public Page<ReviewHouseDTO> findAllByOrderByHousesPriceAsc(Pageable pageable);
