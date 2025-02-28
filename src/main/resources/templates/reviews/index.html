@@ -276,7 +276,7 @@
 												ratingStars = "★★★★★";
 											}
 								            reviewElement.className = "mb-3";
-								            if(currentUserIdData==userId || currentUserIdData==2){
+								            if(currentUserIdData==userId && currentUserIdData!=2){
 									            reviewElement.innerHTML = `
 									                <a href="/houses/${reviewDTO.house.id}" class="link-dark samuraitravel-card-link">
 									                    <div class="card h-100">
