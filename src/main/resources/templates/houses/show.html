@@ -218,7 +218,7 @@
 					 	<script type="text/javascript" th:inline="javascript">
 						    document.getElementById('reviewLinkButton').onclick = function() {
 								var houseID= /*[[${houseID}]]*/ ;
-								refString = "/reviews?reviewhouseId=" + houseID ;
+								refString = "/reviews?uid=0&reviewhouseId=" + houseID ;
 						        location.href = refString;
 						    };
 						</script>
