@@ -63,7 +63,7 @@ public class ReviewsController {
             @RequestParam(name = "price", required = false) Integer price,  
             @RequestParam(name = "order", required = false) String order,
             @RequestParam(name = "reviewhouseId", required = false) Integer reviewhouseId,
-            @RequestParam(name = "uid", required = false) boolearn uid,
+            @RequestParam(name = "uid", required = false) Integer uid,
             @PageableDefault(page = 0, size = 5, sort = "id", direction = Direction.ASC) Pageable pageable,
             Model model
     ){
@@ -127,7 +127,7 @@ public class ReviewsController {
     			System.out.println("   [REVIEW-INDEX] @@@@@ 8");
     			reviewPage = reviewsRepository.findByHousesIdOrderByReviewCreatedAtDesc(reviewhouseId, pageable);
     		}
-    	} else if (uid && userDetails != null) {
+    	} else if (uid==1 && userDetails != null) {
         	UserDetailsImpl userDetailsCopy = userDetails;
             System.out.println(userDetails.getUserId()); // 現在ログインしているユーザーのuserId
     		if ("priceAsc".equals(order)) {
