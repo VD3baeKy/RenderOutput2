@@ -71,6 +71,7 @@ public class ReviewsController {
         if(uid0!=null){
             uid = uid0;
         }
+        model.addAttribute("uidid", uid);
         
     	System.out.println("   [REVIEW-INDEX] A reviewhouseId= " + reviewhouseId);
     	if(reviewhouseId==null) {
