@@ -71,7 +71,7 @@ public class ReviewsController {
         if(uid0!=null){
             uid = uid0;
         }
-        model.addAttribute("uidid", uid);
+        
         
     	System.out.println("   [REVIEW-INDEX] A reviewhouseId= " + reviewhouseId);
     	if(reviewhouseId==null) {
@@ -88,6 +88,7 @@ public class ReviewsController {
                 userDetails = (UserDetailsImpl) authentication.getPrincipal();
             } else {
                 // 未認証の場合の処理
+                uid=0;
             }
         } catch (ClassCastException e) {
             // UserDetailsImplへのキャストに失敗した場合の処理
@@ -226,6 +227,8 @@ public class ReviewsController {
         }
         System.out.println("   [REVIEW-INDEX] isAuthenticatedData= " + isAuthenticatedData);
         model.addAttribute("isAuthenticatedData", isAuthenticatedData);
+
+        model.addAttribute("uidid", uid);
         
         return "reviews/index";
     }
