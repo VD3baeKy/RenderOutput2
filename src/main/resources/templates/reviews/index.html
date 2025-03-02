@@ -170,7 +170,7 @@
                                  <form method="get" th:action="@{/reviews}" class="mb-3 samuraitravel-sort-box"> 
                                      <input th:if="${keyword}" type="hidden" name="keyword" th:value="${keyword}">
                                      <input th:if="${area}" type="hidden" name="area" th:value="${area}">
-                                     <input th:if="${price}" type="hidden" name="uid" th:value="${uidid}>                                      
+                                     <input type="hidden" name="uid" th:value="${uidid}>                                      
                                      <select class="form-select form-select-sm" name="order" onChange="this.form.submit();">
                                          <option value="createdAtDesc" th:selected="${order == 'createdAtDesc' || order == null}">新着順</option>                                            
                                          <option value="priceAsc" th:selected="${order == 'priceAsc'}">宿泊料金が安い順</option>
