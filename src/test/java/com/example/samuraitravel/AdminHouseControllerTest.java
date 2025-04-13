@@ -25,7 +25,7 @@ public class AdminHouseControllerTest {
 		
 		junitTest.perform(get("/admin/houses"))
 			.andExpect(status().is3xxRedirection())
-			.andExpect(redirectedUrl("http://localhost/no-url"));
+			.andExpect(redirectedUrl("http://localhost/login"));
 		
 		
 	}
