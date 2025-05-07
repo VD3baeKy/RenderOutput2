@@ -1,0 +1,587 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>renderoutput.onrender.com (SAMURAI TRAVEL): com.example.samuraitravel.repository.ReviewsRepository インタフェース</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">renderoutput.onrender.com (SAMURAI TRAVEL)
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><b>com</b></li><li class="navelem"><b>example</b></li><li class="navelem"><a class="el" href="namespacecom_1_1example_1_1samuraitravel.html">samuraitravel</a></li><li class="navelem"><a class="el" href="namespacecom_1_1example_1_1samuraitravel_1_1repository.html">repository</a></li><li class="navelem"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html">ReviewsRepository</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">公開メンバ関数</a> &#124;
+<a href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository-members.html">全メンバ一覧</a>  </div>
+  <div class="headertitle"><div class="title">com.example.samuraitravel.repository.ReviewsRepository インタフェース</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+com.example.samuraitravel.repository.ReviewsRepository の継承関係図</div>
+<div class="dyncontent">
+<div class="center"><img src="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository__inherit__graph.png" border="0" usemap="#acom_8example_8samuraitravel_8repository_8ReviewsRepository_inherit__map" alt="Inheritance graph"/></div>
+<map name="acom_8example_8samuraitravel_8repository_8ReviewsRepository_inherit__map" id="acom_8example_8samuraitravel_8repository_8ReviewsRepository_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,133,279,783"/>
+<area shape="rect" title=" " alt="" coords="57,5,227,85"/>
+<area shape="poly" title=" " alt="" coords="145,99,145,133,139,133,139,99"/>
+</map>
+</div>
+<div class="dynheader">
+com.example.samuraitravel.repository.ReviewsRepository 連携図</div>
+<div class="dyncontent">
+<div class="center"><img src="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository__coll__graph.png" border="0" usemap="#acom_8example_8samuraitravel_8repository_8ReviewsRepository_coll__map" alt="Collaboration graph"/></div>
+<map name="acom_8example_8samuraitravel_8repository_8ReviewsRepository_coll__map" id="acom_8example_8samuraitravel_8repository_8ReviewsRepository_coll__map">
+<area shape="rect" title=" " alt="" coords="5,133,279,783"/>
+<area shape="rect" title=" " alt="" coords="57,5,227,85"/>
+<area shape="poly" title=" " alt="" coords="145,99,145,133,139,133,139,99"/>
+</map>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+公開メンバ関数</h2></td></tr>
+<tr class="memitem:a3036875ce51d8339d6fe1b6c077c08c2" id="r_a3036875ce51d8339d6fe1b6c077c08c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#a3036875ce51d8339d6fe1b6c077c08c2">deleteById</a> (@Param(&quot;reviewId&quot;) Integer id)</td></tr>
+<tr class="separator:a3036875ce51d8339d6fe1b6c077c08c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45318a44f38c13736960d918661fcb4c" id="r_a45318a44f38c13736960d918661fcb4c"><td class="memItemLeft" align="right" valign="top">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#a45318a44f38c13736960d918661fcb4c">findByHousesIdOrderByHousesPriceAsc</a> (Integer keyword, Pageable pageable)</td></tr>
+<tr class="separator:a45318a44f38c13736960d918661fcb4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a374d16470663f4420e515777f5421a92" id="r_a374d16470663f4420e515777f5421a92"><td class="memItemLeft" align="right" valign="top">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#a374d16470663f4420e515777f5421a92">findByHousesIdOrderByReviewCreatedAtDesc</a> (Integer keyword, Pageable pageable)</td></tr>
+<tr class="separator:a374d16470663f4420e515777f5421a92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86f46affa101519883677b618def41a1" id="r_a86f46affa101519883677b618def41a1"><td class="memItemLeft" align="right" valign="top">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#a86f46affa101519883677b618def41a1">findByHousesNameLikeOrHousesAddressLikeOrderByHousesPriceAsc</a> (String keyword, Pageable pageable)</td></tr>
+<tr class="separator:a86f46affa101519883677b618def41a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca06b86d1ade2efed96497700347b028" id="r_aca06b86d1ade2efed96497700347b028"><td class="memItemLeft" align="right" valign="top">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#aca06b86d1ade2efed96497700347b028">findByHousesNameLikeOrHousesAddressLikeOrderByReviewCreatedAtDesc</a> (String keyword, Pageable pageable)</td></tr>
+<tr class="separator:aca06b86d1ade2efed96497700347b028"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07b5b9a298908f58360c61a792687ed7" id="r_a07b5b9a298908f58360c61a792687ed7"><td class="memItemLeft" align="right" valign="top">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#a07b5b9a298908f58360c61a792687ed7">findByHousesAddressLikeOrderByHousesPriceAsc</a> (String keyword, Pageable pageable)</td></tr>
+<tr class="separator:a07b5b9a298908f58360c61a792687ed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cfee07932936791f8118443730646b0" id="r_a9cfee07932936791f8118443730646b0"><td class="memItemLeft" align="right" valign="top">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#a9cfee07932936791f8118443730646b0">findByHousesAddressLikeOrderByReviewCreatedAtDesc</a> (String keyword, Pageable pageable)</td></tr>
+<tr class="separator:a9cfee07932936791f8118443730646b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab90b71a6a1336354ec74519b2c5593f7" id="r_ab90b71a6a1336354ec74519b2c5593f7"><td class="memItemLeft" align="right" valign="top">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#ab90b71a6a1336354ec74519b2c5593f7">findByPhoneNumberLikeOrderByHousesPriceAsc</a> (String phoneStr, String keyword, Pageable pageable)</td></tr>
+<tr class="separator:ab90b71a6a1336354ec74519b2c5593f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6acce5464b92aa2fc3cfd43f99548b44" id="r_a6acce5464b92aa2fc3cfd43f99548b44"><td class="memItemLeft" align="right" valign="top">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#a6acce5464b92aa2fc3cfd43f99548b44">findByPhoneNumberLikeOrderByReviewCreatedAtDesc</a> (String phoneStr, String keyword, Pageable pageable)</td></tr>
+<tr class="separator:a6acce5464b92aa2fc3cfd43f99548b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a191568a31abd7f7fcb1d1ba08a30401c" id="r_a191568a31abd7f7fcb1d1ba08a30401c"><td class="memItemLeft" align="right" valign="top">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#a191568a31abd7f7fcb1d1ba08a30401c">findByHousesPriceLessThanEqualOrderByHousesPriceAsc</a> (Integer keyword1, Pageable pageable)</td></tr>
+<tr class="separator:a191568a31abd7f7fcb1d1ba08a30401c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a438a9a6603a0f520b7f50b044c74218f" id="r_a438a9a6603a0f520b7f50b044c74218f"><td class="memItemLeft" align="right" valign="top">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#a438a9a6603a0f520b7f50b044c74218f">findByHousesPriceLessThanEqualOrderByReviewCreatedAtDesc</a> (Integer keyword1, Pageable pageable)</td></tr>
+<tr class="separator:a438a9a6603a0f520b7f50b044c74218f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62352b61d03c4f7bae0aee3a162699e2" id="r_a62352b61d03c4f7bae0aee3a162699e2"><td class="memItemLeft" align="right" valign="top">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#a62352b61d03c4f7bae0aee3a162699e2">findByUserIdOrderByHousesPriceAsc</a> (Integer keyword1, Pageable pageable)</td></tr>
+<tr class="separator:a62352b61d03c4f7bae0aee3a162699e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4b645a11451a61d975727f5dccefc6b" id="r_ae4b645a11451a61d975727f5dccefc6b"><td class="memItemLeft" align="right" valign="top">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#ae4b645a11451a61d975727f5dccefc6b">findByUserIdOrderByReviewCreatedAtDesc</a> (Integer keyword1, Pageable pageable)</td></tr>
+<tr class="separator:ae4b645a11451a61d975727f5dccefc6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cd04ea2360fd99da519414ff59af6a7" id="r_a8cd04ea2360fd99da519414ff59af6a7"><td class="memItemLeft" align="right" valign="top">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#a8cd04ea2360fd99da519414ff59af6a7">findAllByOrderByHousesPriceAsc</a> (Pageable pageable)</td></tr>
+<tr class="separator:a8cd04ea2360fd99da519414ff59af6a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa69ffce64bfccdb178300e0e18775659" id="r_aa69ffce64bfccdb178300e0e18775659"><td class="memItemLeft" align="right" valign="top">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#aa69ffce64bfccdb178300e0e18775659">findAllByOrderByReviewCreatedAtDesc</a> (Pageable pageable)</td></tr>
+<tr class="separator:aa69ffce64bfccdb178300e0e18775659"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a777751526bc120192f89e8905f91b46f" id="r_a777751526bc120192f89e8905f91b46f"><td class="memItemLeft" align="right" valign="top">List&lt; Review &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#a777751526bc120192f89e8905f91b46f">findTop10ByOrderByCreatedAtDesc</a> ()</td></tr>
+<tr class="separator:a777751526bc120192f89e8905f91b46f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d58091eb68313c4627fc768166cafde" id="r_a2d58091eb68313c4627fc768166cafde"><td class="memItemLeft" align="right" valign="top">List&lt; Review &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html#a2d58091eb68313c4627fc768166cafde">findByHouseIdOrderByCreatedAtDesc</a> (Integer houseId)</td></tr>
+<tr class="separator:a2d58091eb68313c4627fc768166cafde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">メソッド詳解</h2>
+<a id="a3036875ce51d8339d6fe1b6c077c08c2" name="a3036875ce51d8339d6fe1b6c077c08c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3036875ce51d8339d6fe1b6c077c08c2">&#9670;&#160;</a></span>deleteById()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void com.example.samuraitravel.repository.ReviewsRepository.deleteById </td>
+          <td>(</td>
+          <td class="paramtype">@Param(&quot;reviewId&quot;) Integer&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8cd04ea2360fd99da519414ff59af6a7" name="a8cd04ea2360fd99da519414ff59af6a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cd04ea2360fd99da519414ff59af6a7">&#9670;&#160;</a></span>findAllByOrderByHousesPriceAsc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt; com.example.samuraitravel.repository.ReviewsRepository.findAllByOrderByHousesPriceAsc </td>
+          <td>(</td>
+          <td class="paramtype">Pageable&#160;</td>
+          <td class="paramname"><em>pageable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa69ffce64bfccdb178300e0e18775659" name="aa69ffce64bfccdb178300e0e18775659"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa69ffce64bfccdb178300e0e18775659">&#9670;&#160;</a></span>findAllByOrderByReviewCreatedAtDesc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt; com.example.samuraitravel.repository.ReviewsRepository.findAllByOrderByReviewCreatedAtDesc </td>
+          <td>(</td>
+          <td class="paramtype">Pageable&#160;</td>
+          <td class="paramname"><em>pageable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2d58091eb68313c4627fc768166cafde" name="a2d58091eb68313c4627fc768166cafde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d58091eb68313c4627fc768166cafde">&#9670;&#160;</a></span>findByHouseIdOrderByCreatedAtDesc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt; Review &gt; com.example.samuraitravel.repository.ReviewsRepository.findByHouseIdOrderByCreatedAtDesc </td>
+          <td>(</td>
+          <td class="paramtype">Integer&#160;</td>
+          <td class="paramname"><em>houseId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a07b5b9a298908f58360c61a792687ed7" name="a07b5b9a298908f58360c61a792687ed7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07b5b9a298908f58360c61a792687ed7">&#9670;&#160;</a></span>findByHousesAddressLikeOrderByHousesPriceAsc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt; com.example.samuraitravel.repository.ReviewsRepository.findByHousesAddressLikeOrderByHousesPriceAsc </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>keyword</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Pageable&#160;</td>
+          <td class="paramname"><em>pageable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9cfee07932936791f8118443730646b0" name="a9cfee07932936791f8118443730646b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cfee07932936791f8118443730646b0">&#9670;&#160;</a></span>findByHousesAddressLikeOrderByReviewCreatedAtDesc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt; com.example.samuraitravel.repository.ReviewsRepository.findByHousesAddressLikeOrderByReviewCreatedAtDesc </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>keyword</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Pageable&#160;</td>
+          <td class="paramname"><em>pageable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a45318a44f38c13736960d918661fcb4c" name="a45318a44f38c13736960d918661fcb4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45318a44f38c13736960d918661fcb4c">&#9670;&#160;</a></span>findByHousesIdOrderByHousesPriceAsc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt; com.example.samuraitravel.repository.ReviewsRepository.findByHousesIdOrderByHousesPriceAsc </td>
+          <td>(</td>
+          <td class="paramtype">Integer&#160;</td>
+          <td class="paramname"><em>keyword</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Pageable&#160;</td>
+          <td class="paramname"><em>pageable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a374d16470663f4420e515777f5421a92" name="a374d16470663f4420e515777f5421a92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a374d16470663f4420e515777f5421a92">&#9670;&#160;</a></span>findByHousesIdOrderByReviewCreatedAtDesc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt; com.example.samuraitravel.repository.ReviewsRepository.findByHousesIdOrderByReviewCreatedAtDesc </td>
+          <td>(</td>
+          <td class="paramtype">Integer&#160;</td>
+          <td class="paramname"><em>keyword</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Pageable&#160;</td>
+          <td class="paramname"><em>pageable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a86f46affa101519883677b618def41a1" name="a86f46affa101519883677b618def41a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86f46affa101519883677b618def41a1">&#9670;&#160;</a></span>findByHousesNameLikeOrHousesAddressLikeOrderByHousesPriceAsc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt; com.example.samuraitravel.repository.ReviewsRepository.findByHousesNameLikeOrHousesAddressLikeOrderByHousesPriceAsc </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>keyword</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Pageable&#160;</td>
+          <td class="paramname"><em>pageable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aca06b86d1ade2efed96497700347b028" name="aca06b86d1ade2efed96497700347b028"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca06b86d1ade2efed96497700347b028">&#9670;&#160;</a></span>findByHousesNameLikeOrHousesAddressLikeOrderByReviewCreatedAtDesc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt; com.example.samuraitravel.repository.ReviewsRepository.findByHousesNameLikeOrHousesAddressLikeOrderByReviewCreatedAtDesc </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>keyword</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Pageable&#160;</td>
+          <td class="paramname"><em>pageable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a191568a31abd7f7fcb1d1ba08a30401c" name="a191568a31abd7f7fcb1d1ba08a30401c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a191568a31abd7f7fcb1d1ba08a30401c">&#9670;&#160;</a></span>findByHousesPriceLessThanEqualOrderByHousesPriceAsc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt; com.example.samuraitravel.repository.ReviewsRepository.findByHousesPriceLessThanEqualOrderByHousesPriceAsc </td>
+          <td>(</td>
+          <td class="paramtype">Integer&#160;</td>
+          <td class="paramname"><em>keyword1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Pageable&#160;</td>
+          <td class="paramname"><em>pageable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a438a9a6603a0f520b7f50b044c74218f" name="a438a9a6603a0f520b7f50b044c74218f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a438a9a6603a0f520b7f50b044c74218f">&#9670;&#160;</a></span>findByHousesPriceLessThanEqualOrderByReviewCreatedAtDesc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt; com.example.samuraitravel.repository.ReviewsRepository.findByHousesPriceLessThanEqualOrderByReviewCreatedAtDesc </td>
+          <td>(</td>
+          <td class="paramtype">Integer&#160;</td>
+          <td class="paramname"><em>keyword1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Pageable&#160;</td>
+          <td class="paramname"><em>pageable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab90b71a6a1336354ec74519b2c5593f7" name="ab90b71a6a1336354ec74519b2c5593f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab90b71a6a1336354ec74519b2c5593f7">&#9670;&#160;</a></span>findByPhoneNumberLikeOrderByHousesPriceAsc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt; com.example.samuraitravel.repository.ReviewsRepository.findByPhoneNumberLikeOrderByHousesPriceAsc </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>phoneStr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>keyword</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Pageable&#160;</td>
+          <td class="paramname"><em>pageable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6acce5464b92aa2fc3cfd43f99548b44" name="a6acce5464b92aa2fc3cfd43f99548b44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6acce5464b92aa2fc3cfd43f99548b44">&#9670;&#160;</a></span>findByPhoneNumberLikeOrderByReviewCreatedAtDesc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt; com.example.samuraitravel.repository.ReviewsRepository.findByPhoneNumberLikeOrderByReviewCreatedAtDesc </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>phoneStr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>keyword</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Pageable&#160;</td>
+          <td class="paramname"><em>pageable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a62352b61d03c4f7bae0aee3a162699e2" name="a62352b61d03c4f7bae0aee3a162699e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62352b61d03c4f7bae0aee3a162699e2">&#9670;&#160;</a></span>findByUserIdOrderByHousesPriceAsc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt; com.example.samuraitravel.repository.ReviewsRepository.findByUserIdOrderByHousesPriceAsc </td>
+          <td>(</td>
+          <td class="paramtype">Integer&#160;</td>
+          <td class="paramname"><em>keyword1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Pageable&#160;</td>
+          <td class="paramname"><em>pageable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae4b645a11451a61d975727f5dccefc6b" name="ae4b645a11451a61d975727f5dccefc6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4b645a11451a61d975727f5dccefc6b">&#9670;&#160;</a></span>findByUserIdOrderByReviewCreatedAtDesc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Page&lt; <a class="el" href="classcom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewHouseDTO.html">ReviewHouseDTO</a> &gt; com.example.samuraitravel.repository.ReviewsRepository.findByUserIdOrderByReviewCreatedAtDesc </td>
+          <td>(</td>
+          <td class="paramtype">Integer&#160;</td>
+          <td class="paramname"><em>keyword1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Pageable&#160;</td>
+          <td class="paramname"><em>pageable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a777751526bc120192f89e8905f91b46f" name="a777751526bc120192f89e8905f91b46f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a777751526bc120192f89e8905f91b46f">&#9670;&#160;</a></span>findTop10ByOrderByCreatedAtDesc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt; Review &gt; com.example.samuraitravel.repository.ReviewsRepository.findTop10ByOrderByCreatedAtDesc </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>このインタフェース詳解は次のファイルから抽出されました:<ul>
+<li>samuraitravel/repository/<a class="el" href="ReviewsRepository_8java.html">ReviewsRepository.java</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+</small></address>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<map id="com.example.samuraitravel.entity.Reservation" name="com.example.samuraitravel.entity.Reservation">
+<area shape="rect" id="Node000001" title=" " alt="" coords="95,496,337,696"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1example_1_1samuraitravel_1_1entity_1_1House.html" title=" " alt="" coords="5,153,248,433"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,433,184,479,179,481,166,434"/>
+<area shape="rect" id="Node000003" href="$classcom_1_1example_1_1samuraitravel_1_1entity_1_1User.html" title=" " alt="" coords="272,161,544,426"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="326,428,290,483,286,481,322,425"/>
+<area shape="rect" id="Node000004" href="$classcom_1_1example_1_1samuraitravel_1_1entity_1_1Role.html" title=" " alt="" coords="273,5,543,91"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="411,91,411,144,405,144,405,91"/>
+</map>

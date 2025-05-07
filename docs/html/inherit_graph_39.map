@@ -1,0 +1,17 @@
+<map id="クラス階層図" name="クラス階層図">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,205,117,230"/>
+<area shape="rect" id="Node000001" href="$interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1HouseRepository.html" title=" " alt="" coords="165,5,444,45"/>
+<area shape="poly" id="edge2_Node000000_Node000001" title=" " alt="" coords="69,191,83,159,104,123,130,86,164,55,185,43,188,48,167,59,134,89,108,125,88,162,74,193"/>
+<area shape="rect" id="Node000002" href="$interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1LovesRepository.html" title=" " alt="" coords="165,69,444,109"/>
+<area shape="poly" id="edge3_Node000000_Node000002" title=" " alt="" coords="79,192,116,154,139,135,164,119,192,107,194,112,167,124,142,139,119,158,83,196"/>
+<area shape="rect" id="Node000003" href="$interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReservationRepository.html" title=" " alt="" coords="165,133,444,173"/>
+<area shape="poly" id="edge4_Node000000_Node000003" title=" " alt="" coords="113,198,165,183,212,171,213,176,166,188,115,203"/>
+<area shape="rect" id="Node000004" href="$interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1ReviewsRepository.html" title=" " alt="" coords="165,197,444,237"/>
+<area shape="poly" id="edge5_Node000000_Node000004" title=" " alt="" coords="132,215,165,215,165,220,132,220"/>
+<area shape="rect" id="Node000005" href="$interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1RoleRepository.html" title=" " alt="" coords="165,261,444,301"/>
+<area shape="poly" id="edge6_Node000000_Node000005" title=" " alt="" coords="115,232,166,247,213,259,212,264,165,252,113,237"/>
+<area shape="rect" id="Node000006" href="$interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1UserRepository.html" title=" " alt="" coords="165,325,444,365"/>
+<area shape="poly" id="edge7_Node000000_Node000006" title=" " alt="" coords="83,239,119,276,142,295,167,311,194,323,192,328,164,316,139,300,116,280,79,242"/>
+<area shape="rect" id="Node000007" href="$interfacecom_1_1example_1_1samuraitravel_1_1repository_1_1VerificationTokenRepository.html" title=" " alt="" coords="165,389,444,429"/>
+<area shape="poly" id="edge8_Node000000_Node000007" title=" " alt="" coords="74,242,88,273,108,309,134,345,167,375,188,387,185,392,164,379,130,349,104,312,83,275,69,244"/>
+</map>

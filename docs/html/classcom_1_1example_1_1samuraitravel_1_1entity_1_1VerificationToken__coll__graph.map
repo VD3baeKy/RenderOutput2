@@ -1,0 +1,7 @@
+<map id="com.example.samuraitravel.entity.VerificationToken" name="com.example.samuraitravel.entity.VerificationToken">
+<area shape="rect" id="Node000001" title=" " alt="" coords="20,481,263,621"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1example_1_1samuraitravel_1_1entity_1_1User.html" title=" " alt="" coords="5,153,277,419"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,419,144,465,139,465,139,419"/>
+<area shape="rect" id="Node000003" href="$classcom_1_1example_1_1samuraitravel_1_1entity_1_1Role.html" title=" " alt="" coords="6,5,277,91"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="144,91,144,137,139,137,139,91"/>
+</map>
