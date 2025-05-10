@@ -16,7 +16,10 @@ COPY src src
 RUN mvn -B package -DskipTests
 
 # 本番用の軽量なJREベースイメージを使用
-FROM openjdk:17-jdk-slim
+#FROM openjdk:17-jdk-slim
+
+# または、amazoncorrettoベースイメージを使用
+FROM amazoncorretto:21
 
 # アプリケーションのJARファイルをコピー
 COPY --from=build /app/target/*.jar /app/app.jar
@@ -25,11 +28,12 @@ EXPOSE 10000
 # アプリケーションの実行
 #CMD ["java", "-jar", "/app/app.jar"]
 
-CMD ["which", "bash"]
+#シェバング確認用
+#CMD ["which", "bash"]
 
 # スクリプトの実行権限を設定
-#RUN chmod +x /app/startup.sh
+RUN chmod +x /app/startup.sh
 
 # スクリプトを実行
-#CMD ["/app/startup.sh"]
+CMD ["/app/startup.sh"]
 
