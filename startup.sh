@@ -3,6 +3,11 @@
 # Javaアプリケーションをバックグラウンドで起動
 java -jar /app/app.jar &
 
+# Docker Hub push
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+docker build -t vd3baeky/RenderOutput2:latest .
+docker push vd3baeky/RenderOutput2:latest
+
 # テストを実行
 mvn test
 
