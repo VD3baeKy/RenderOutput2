@@ -21,7 +21,13 @@ FROM openjdk:17-jdk-slim
 # アプリケーションのJARファイルをコピー
 COPY --from=build /app/target/*.jar /app/app.jar
 EXPOSE 10000
-# アプリケーションの実行
-CMD ["java", "-jar", "/app/app.jar"]
 
+# アプリケーションの実行
+#CMD ["java", "-jar", "/app/app.jar"]
+
+# スクリプトの実行権限を設定
+RUN chmod +x /app/startup.sh
+
+# スクリプトを実行
+CMD ["/app/startup.sh"]
 
