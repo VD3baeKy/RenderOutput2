@@ -32,6 +32,7 @@ EXPOSE 10000
 #CMD ["which", "bash"]
 
 # スクリプトの実行権限を設定
+COPY startup.sh /app/startup.sh
 RUN chmod +x /app/startup.sh
 
 # スクリプトを実行
