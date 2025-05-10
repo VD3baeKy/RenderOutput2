@@ -28,8 +28,8 @@ EXPOSE 10000
 CMD ["which", "bash"]
 
 # スクリプトの実行権限を設定
-RUN chmod +x /app/startup.sh
+#RUN chmod +x /app/startup.sh
 
 # スクリプトを実行
-CMD ["/app/startup.sh"]
+#CMD ["/app/startup.sh"]
 
