@@ -1,6 +1,9 @@
 name: Build and Push Docker Image
 
 on:
+  # 手動トリガ
+  workflow_dispatch: 
+  
   # mainブランチにプッシュされたときにトリガー
   push:
     branches:
