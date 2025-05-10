@@ -25,6 +25,8 @@ EXPOSE 10000
 # アプリケーションの実行
 #CMD ["java", "-jar", "/app/app.jar"]
 
+CMD ["which", "bash"]
+
 # スクリプトの実行権限を設定
 RUN chmod +x /app/startup.sh
 
