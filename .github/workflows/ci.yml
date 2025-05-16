@@ -10,7 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
-    # 環境変数
     env:
       DB_URL: ${{ secrets.DB_URL }}
       DB_USERNAME: ${{ secrets.DB_USERNAME }}
@@ -18,7 +17,6 @@ jobs:
       STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
       STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
       
-    # PostgreSQL サービス
     services:
       postgres:
         image: postgres:14
@@ -44,7 +42,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # テスト用の設定ファイルを作成 - server.port を追加
     - name: Create test directories and configuration
       run: |
         mkdir -p src/test/resources
@@ -81,20 +78,23 @@ jobs:
         STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
         SERVER_PORT: 0
 
-    # アーティファクト保存処理 (変更なし)
     - name: Create artifact directory
       run: mkdir -p artifact_reports
       
     - name: Copy test reports to artifact directory
       run: cp -r target/surefire-reports/*.html artifact_reports/ || echo "No HTML files to copy"
-      
+
+    - name: Copy XML test results to artifact directory
+      run: cp -r target/surefire-reports/*.xml artifact_reports/ || echo "No XML files to copy"
+
     - name: Save test reports to repository
       if: always()
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         mkdir -p test-reports
         cp -r target/surefire-reports/*.html test-reports/ || echo "No HTML files to copy"
+        cp -r target/surefire-reports/*.xml test-reports/ || echo "No XML files to copy"
         git add test-reports/
         git commit -m "Add test reports from CI run" || echo "No changes to commit"
         git push
