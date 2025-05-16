@@ -85,10 +85,16 @@
 			<scope>test</scope>
 		</dependency>
 		 <dependency>
-             <groupId>com.stripe</groupId>
-             <artifactId>stripe-java</artifactId>
-             <version>26.0.0</version>
-         </dependency> 
+	             <groupId>com.stripe</groupId>
+	             <artifactId>stripe-java</artifactId>
+	             <version>26.0.0</version>
+	         </dependency> 
+		 <dependency>
+		    <groupId>io.qameta.allure</groupId>
+		    <artifactId>allure-junit5</artifactId>
+		    <version>2.23.0</version>
+		    <scope>test</scope>
+		  </dependency>
 	</dependencies>
 
 	<build>
@@ -128,6 +134,11 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			 <plugin>
+			      <groupId>io.qameta.allure</groupId>
+			      <artifactId>allure-maven</artifactId>
+			      <version>2.11.2</version>
+			 </plugin>
 		</plugins>
 	</build>
 
