@@ -80,7 +80,7 @@
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
-            <version>2.23.0</version>
+            <version>>2.24.2</version>
             <scope>test</scope>
         </dependency>
         <!-- JUnit5（明示的に追加。spring-boot-starter-testでも入るが念のため） -->
