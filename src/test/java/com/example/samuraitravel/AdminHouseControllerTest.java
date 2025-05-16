@@ -29,6 +29,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.samuraitravel.entity.House;
+import com.example.samuraitravel.form.HouseEditForm;
+import com.example.samuraitravel.form.HouseRegisterForm;
 import com.example.samuraitravel.repository.HouseRepository;
 import com.example.samuraitravel.service.HouseService;
 
@@ -99,7 +101,8 @@ public class AdminHouseControllerTest {
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testCreate() throws Exception {
-        doNothing().when(houseService).create(any(), any());
+        // HouseRegisterForm クラスの引数1つを受け取るメソッド
+        doNothing().when(houseService).create(any(HouseRegisterForm.class));
         
         mockMvc.perform(post("/admin/houses/create")
                       .with(csrf())
@@ -113,7 +116,7 @@ public class AdminHouseControllerTest {
                .andExpect(status().is3xxRedirection())
                .andExpect(redirectedUrl("/admin/houses"));
         
-        verify(houseService, times(1)).create(any(), any());
+        verify(houseService, times(1)).create(any(HouseRegisterForm.class));
     }
     
     @Test
@@ -142,7 +145,8 @@ public class AdminHouseControllerTest {
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testUpdate() throws Exception {
-        doNothing().when(houseService).update(any(), any());
+        // HouseEditForm クラスの引数1つを受け取るメソッド
+        doNothing().when(houseService).update(any(HouseEditForm.class));
         
         mockMvc.perform(post("/admin/houses/1/update")
                       .with(csrf())
@@ -156,7 +160,7 @@ public class AdminHouseControllerTest {
                .andExpect(status().is3xxRedirection())
                .andExpect(redirectedUrl("/admin/houses"));
         
-        verify(houseService, times(1)).update(any(), any());
+        verify(houseService, times(1)).update(any(HouseEditForm.class));
     }
     
     @Test
