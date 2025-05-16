@@ -1,4 +1,4 @@
-name: Java CI with Maven
+name: Java CI with Maven & Allure
 
 on:
   workflow_dispatch:
@@ -64,11 +64,11 @@ jobs:
         logging.level.com.example=DEBUG
         EOF
 
-    - name: Build with Maven
+    - name: Build with Maven (skip tests)
       run: mvn clean install -DskipTests
 
-    - name: Run tests and generate reports (JST)
-      run: mvn clean test site -Duser.timezone=Asia/Tokyo
+    - name: Run tests and generate Allure results
+      run: mvn clean test -Duser.timezone=Asia/Tokyo
       env:
         SPRING_DATASOURCE_URL: ${{ secrets.DB_URL }}
         SPRING_DATASOURCE_USERNAME: ${{ secrets.DB_USERNAME }}
@@ -77,20 +77,21 @@ jobs:
         STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
         SERVER_PORT: 0
 
-    - name: Set JST timestamp for Last Published in report HTML
-      run: |
-        JST_NOW=$(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M:%S')
-        for f in target/site/surefire-report.html artifact_reports/surefire-report.html; do
-          if [ -f "$f" ]; then
-            sed -i -E "s#(Last Published: )([0-9\-]+)(</b>)?#\1${JST_NOW} (JST)\3#g" "$f"
-          fi
-        done
+    - name: Generate Allure HTML report
+      uses: simple-elf/allure-report-action@v1
+      with:
+        allure_results: 'target/allure-results'
+        allure_report: 'target/allure-report'
+        gh_pages: false
 
     - name: Create artifact directory
       run: mkdir -p artifact_reports
 
-    - name: Copy HTML report to artifact directory
-      run: cp target/site/surefire-report.html artifact_reports/surefire-report.html || echo "No HTML report to copy"
+    - name: Copy Allure HTML report to artifact directory
+      run: |
+        if [ -d target/allure-report ]; then
+          cp -r target/allure-report/* artifact_reports/
+        fi
 
     - name: Copy XML test results to artifact directory
       run: cp -r target/surefire-reports/*.xml artifact_reports/ || echo "No XML files to copy"
@@ -101,19 +102,18 @@ jobs:
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        
         git add artifact_reports/
-        git commit -m "Add test reports from CI run" || echo "No changes to commit"
+        git commit -m "Add Allure test reports from CI run" || echo "No changes to commit"
         git push origin HEAD:main
 
     # 別リポジトリへのプッシュ（個人アクセストークンを使用）
     - name: Push report to test code repository
       if: always()
       run: |
-        # コピーしてindexとして保存
-        cp artifact_reports/surefire-report.html index.html
+        # index.htmlがAllureのトップページ。コピーする
+        cp artifact_reports/index.html index.html
 
-        # 別リポジトリのクローン（パスを指定して別フォルダにクローン）
+        # 別リポジトリのクローン
         git clone https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/VD3baeKy/RenderOutput2_TestCodeRepo.git test-repo
 
         # ファイルをコピー
@@ -124,6 +124,6 @@ jobs:
         git config user.name "github-actions[bot]"
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git add index.html
-        git commit -m "Update test report" || echo "No changes to commit"
+        git commit -m "Update Allure test report" || echo "No changes to commit"
         git push
         
