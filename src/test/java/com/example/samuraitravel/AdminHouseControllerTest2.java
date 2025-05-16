@@ -31,6 +31,7 @@ import com.example.samuraitravel.service.HouseService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("test2")
 public class AdminHouseControllerTest2 {
 
     @Autowired
