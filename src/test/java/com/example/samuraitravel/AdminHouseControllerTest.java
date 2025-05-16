@@ -35,9 +35,30 @@ import com.example.samuraitravel.repository.HouseRepository;
 import com.example.samuraitravel.service.HouseService;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false) // フィルタを無効化
 @ActiveProfiles("test")
 public class AdminHouseControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    // テストメソッドの前に設定を追加
+    @BeforeEach
+    public void setup() {
+        mockMvc = MockMvcBuilders.standaloneSetup(new AdminHouseController(houseRepository, houseService))
+                .setViewResolvers((viewName, locale) -> new AbstractUrlBasedView() {
+                    @Override
+                    protected boolean isUrlRequired() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean checkResource(Locale locale) {
+                        return true;
+                    }
+                })
+                .build();
+    }
 
     @Autowired
     private MockMvc mockMvc;
