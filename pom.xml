@@ -77,12 +77,15 @@
             <version>26.0.0</version>
         </dependency>
         <!-- Allure JUnit5 Integration (必須) -->
+	    <!-- この依存関係は不要になるので、コメントアウトか削除 -->
+		<!--
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
             <version>2.21.0</version>
             <scope>test</scope>
         </dependency>
+		-->
         <!-- JUnit5（明示的に追加。spring-boot-starter-testでも入るが念のため） -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
