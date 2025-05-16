@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.samuraitravel.SamuraitravelApplicationTests" time="12.861" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="AdminHouseControllerTest" time="0.626" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -61,48 +61,6 @@
     <property name="java.class.version" value="61.0"/>
     <property name="LOGGED_APPLICATION_NAME" value="[samuraitravel] "/>
   </properties>
-  <testcase name="contextLoads" classname="com.example.samuraitravel.SamuraitravelApplicationTests" time="0.475">
-    <system-out><![CDATA[20:59:46.118 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.samuraitravel.SamuraitravelApplicationTests]: SamuraitravelApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-20:59:46.218 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.samuraitravel.SamuraitravelApplication for test class com.example.samuraitravel.SamuraitravelApplicationTests
-20:59:46.363 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
-
-  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =========|_|==============|___/=/_/_/_/
-
- :: Spring Boot ::                (v3.4.0)
-
-2025-05-16T20:59:46.704Z  INFO 2569 --- [samuraitravel] [           main] c.e.s.SamuraitravelApplicationTests      : Starting SamuraitravelApplicationTests using Java 17.0.15 with PID 2569 (started by runner in /home/runner/work/RenderOutput2/RenderOutput2)
-2025-05-16T20:59:46.705Z  INFO 2569 --- [samuraitravel] [           main] c.e.s.SamuraitravelApplicationTests      : No active profile set, falling back to 1 default profile: "default"
-2025-05-16T20:59:47.437Z  INFO 2569 --- [samuraitravel] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-05-16T20:59:47.524Z  INFO 2569 --- [samuraitravel] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 77 ms. Found 7 JPA repository interfaces.
-2025-05-16T20:59:48.016Z  INFO 2569 --- [samuraitravel] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-05-16T20:59:49.336Z  INFO 2569 --- [samuraitravel] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2c9306d3
-2025-05-16T20:59:49.337Z  INFO 2569 --- [samuraitravel] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-05-16T20:59:55.037Z  INFO 2569 --- [samuraitravel] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-05-16T20:59:55.079Z  INFO 2569 --- [samuraitravel] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.2.Final
-2025-05-16T20:59:55.107Z  INFO 2569 --- [samuraitravel] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-05-16T20:59:55.360Z  INFO 2569 --- [samuraitravel] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-05-16T20:59:55.489Z  WARN 2569 --- [samuraitravel] [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-05-16T20:59:55.628Z  INFO 2569 --- [samuraitravel] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 16.8
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-05-16T20:59:56.437Z  INFO 2569 --- [samuraitravel] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-05-16T20:59:56.439Z  INFO 2569 --- [samuraitravel] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-05-16T20:59:56.790Z  INFO 2569 --- [samuraitravel] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-05-16T20:59:57.536Z  WARN 2569 --- [samuraitravel] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-05-16T20:59:57.563Z  INFO 2569 --- [samuraitravel] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
-2025-05-16T20:59:57.632Z  INFO 2569 --- [samuraitravel] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
-2025-05-16T20:59:57.931Z DEBUG 2569 --- [samuraitravel] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CsrfFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-05-16T20:59:58.351Z  INFO 2569 --- [samuraitravel] [           main] c.e.s.SamuraitravelApplicationTests      : Started SamuraitravelApplicationTests in 11.999 seconds (process running for 12.927)
-]]></system-out>
-  </testcase>
+  <testcase name="testIndex" classname="AdminHouseControllerTest" time="0.567"/>
+  <testcase name="testCreate" classname="AdminHouseControllerTest" time="0.058"/>
 </testsuite>
