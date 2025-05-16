@@ -42,9 +42,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # テスト用の設定ファイルを作成 - シークレット変数を利用
-    - name: Create application-test.properties
+    # ディレクトリの作成コマンドを追加 - ここが重要
+    - name: Create test directories and configuration
       run: |
+        mkdir -p src/test/resources
         echo "spring.datasource.url=${{ secrets.DB_URL }}" > src/test/resources/application-test.properties
         echo "spring.datasource.username=${{ secrets.DB_USERNAME }}" >> src/test/resources/application-test.properties
         echo "spring.datasource.password=${{ secrets.DB_PASSWORD }}" >> src/test/resources/application-test.properties
