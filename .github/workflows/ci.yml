@@ -98,7 +98,7 @@ jobs:
         git push origin HEAD:main
         
         # RenderOutput2_TestCodeRepo.git にプッシュ
-        git remote add renderRepo https://<YOUR_GITHUB_TOKEN>@github.com/<YOUR_USERNAME>/RenderOutput2_TestCodeRepo.git
+        git remote add renderRepo https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/VD3baeKy/RenderOutput2_TestCodeRepo.git
         
         # sure-fire-report.htmlをindex.htmlにリネームしてトップディレクトリに移動
         mv artifact_reports/surefire-report.html index.html
@@ -107,3 +107,4 @@ jobs:
         git add index.html
         git commit -m "Add index.html report to RenderOutput2_TestCodeRepo" || echo "No changes to commit"
         git push renderRepo HEAD:main
+    
