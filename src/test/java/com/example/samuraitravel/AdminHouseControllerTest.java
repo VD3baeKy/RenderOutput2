@@ -5,8 +5,9 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Description;
-import io.qameta.allure.DisplayName;
+//import io.qameta.allure.DisplayName;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
