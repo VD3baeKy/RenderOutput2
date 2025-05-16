@@ -68,8 +68,8 @@ jobs:
     - name: Build with Maven
       run: mvn clean install -DskipTests
 
-    - name: Run tests with specific profile
-      run: mvn test -Dspring.profiles.active=test
+    - name: Run tests and generate reports
+      run: mvn clean test site
       env:
         SPRING_DATASOURCE_URL: ${{ secrets.DB_URL }}
         SPRING_DATASOURCE_USERNAME: ${{ secrets.DB_USERNAME }}
@@ -81,8 +81,8 @@ jobs:
     - name: Create artifact directory
       run: mkdir -p artifact_reports
       
-    - name: Copy test reports to artifact directory
-      run: cp -r target/surefire-reports/*.html artifact_reports/ || echo "No HTML files to copy"
+    - name: Copy HTML report to artifact directory
+      run: cp target/site/surefire-report.html artifact_reports/ || echo "No HTML report to copy"
 
     - name: Copy XML test results to artifact directory
       run: cp -r target/surefire-reports/*.xml artifact_reports/ || echo "No XML files to copy"
@@ -93,8 +93,7 @@ jobs:
         git config user.name "github-actions[bot]"
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         mkdir -p test-reports
-        cp -r target/surefire-reports/*.html test-reports/ || echo "No HTML files to copy"
-        cp -r target/surefire-reports/*.xml test-reports/ || echo "No XML files to copy"
+        cp -r artifact_reports/* test-reports/ || echo "No files to copy"
         git add test-reports/
         git commit -m "Add test reports from CI run" || echo "No changes to commit"
         git push
