@@ -1,7 +1,8 @@
 package com.example;
 
 import org.junit.jupiter.api.Test;
-import io.qameta.allure.DisplayName;
+//import io.qameta.allure.DisplayName;
+import org.junit.jupiter.api.DisplayName;
 
 public class AllureSanityTest {
     @Test
