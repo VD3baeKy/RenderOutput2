@@ -56,8 +56,12 @@ jobs:
         logging.level.com.example=DEBUG
         EOF
 
+    - name: Maven dependency resolve (reset and force download)
+      run: mvn dependency:purge-local-repository dependency:resolve
+      
     - name: Build with Maven (skip tests)
       run: mvn clean install -DskipTests
+      
 
     - name: Run tests and generate Allure results
       run: mvn clean test -Duser.timezone=Asia/Tokyo
