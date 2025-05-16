@@ -21,20 +21,20 @@ public class AdminHouseControllerTest {
 	private MockMvc junitTest;
 	
 	@Test
-	//完全なURLを検証
-	public void testMethod1() throws Exception{		
+	// 完全なURLを検証
+	public void testMethod1() throws Exception {		
 		junitTest.perform(get("/admin/houses"))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(redirectedUrl("http://localhost/login"));		
 	}  
 
-	//完全なURLではなくパスのみを検証
+	// 完全なURLではなくパスのみを検証
 	/*
-	public void testMethod1() throws Exception{		
+	public void testMethod2() throws Exception {		
 		junitTest.perform(get("/admin/houses"))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(redirectedUrl("**/login"));		
 	}
-        */
+	*/
 
 }
