@@ -19,9 +19,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.validation.BindingResult;
 
 import com.example.samuraitravel.entity.House;
 import com.example.samuraitravel.form.HouseEditForm;
@@ -125,25 +125,17 @@ public class AdminHouseControllerTest2 {
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     @DisplayName("民宿登録が正しく処理されること")
     public void testCreate() throws Exception {
-        HouseRegisterForm form = new HouseRegisterForm();
-        form.setName("新規民宿");
-        form.setDescription("新規の説明文です");
-        form.setPrice(15000);
-        form.setCapacity(6);
-        form.setPostalCode("987-6543");
-        form.setAddress("大阪府テスト市4-5-6");
-        form.setPhoneNumber("06-9876-5432");
-        
+        // FIXME: 必要に応じてHouseRegisterFormの初期化方法を修正
         doNothing().when(houseService).create(any(HouseRegisterForm.class));
         
         mockMvc.perform(post("/admin/houses/create")
-                .param("name", form.getName())
-                .param("description", form.getDescription())
-                .param("price", String.valueOf(form.getPrice()))
-                .param("capacity", String.valueOf(form.getCapacity()))
-                .param("postalCode", form.getPostalCode())
-                .param("address", form.getAddress())
-                .param("phoneNumber", form.getPhoneNumber()))
+                .param("name", "新規民宿")
+                .param("description", "新規の説明文です")
+                .param("price", "15000")
+                .param("capacity", "6")
+                .param("postalCode", "987-6543")
+                .param("address", "大阪府テスト市4-5-6")
+                .param("phoneNumber", "06-9876-5432"))
                .andExpect(status().is3xxRedirection())
                .andExpect(redirectedUrl("/admin/houses"))
                .andExpect(flash().attributeExists("successMessage"));
@@ -168,27 +160,21 @@ public class AdminHouseControllerTest2 {
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     @DisplayName("民宿情報の更新が正しく処理されること")
     public void testUpdate() throws Exception {
-        HouseEditForm form = new HouseEditForm();
-        form.setId(1);
-        form.setName("更新後の民宿");
-        form.setDescription("更新後の説明文です");
-        form.setPrice(12000);
-        form.setCapacity(5);
-        form.setPostalCode("567-8901");
-        form.setAddress("京都府テスト町7-8-9");
-        form.setPhoneNumber("075-1234-5678");
+        // 引数なしのコンストラクタは存在しないため、完全なコンストラクタを使用
+        MockMultipartFile imageFile = new MockMultipartFile("imageFile", "test.jpg", "image/jpeg", "test image content".getBytes());
         
+        // サービスのモック設定
         doNothing().when(houseService).update(any(HouseEditForm.class));
         
         mockMvc.perform(post("/admin/houses/1/update")
-                .param("id", String.valueOf(form.getId()))
-                .param("name", form.getName())
-                .param("description", form.getDescription())
-                .param("price", String.valueOf(form.getPrice()))
-                .param("capacity", String.valueOf(form.getCapacity()))
-                .param("postalCode", form.getPostalCode())
-                .param("address", form.getAddress())
-                .param("phoneNumber", form.getPhoneNumber()))
+                .param("id", "1")
+                .param("name", "更新後の民宿")
+                .param("description", "更新後の説明文です")
+                .param("price", "12000")
+                .param("capacity", "5")
+                .param("postalCode", "567-8901")
+                .param("address", "京都府テスト町7-8-9")
+                .param("phoneNumber", "075-1234-5678"))
                .andExpect(status().is3xxRedirection())
                .andExpect(redirectedUrl("/admin/houses"))
                .andExpect(flash().attributeExists("successMessage"));
