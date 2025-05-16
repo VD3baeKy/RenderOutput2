@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.samuraitravel.SamuraitravelApplicationTests" time="11.998" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.samuraitravel.controller.AdminHouseControllerTest" time="1.452" tests="10" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -8,10 +8,8 @@
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.vendor.url" value="https://adoptium.net/"/>
     <property name="user.timezone" value="Asia/Tokyo"/>
-    <property name="org.jboss.logging.provider" value="slf4j"/>
     <property name="os.name" value="Linux"/>
     <property name="java.vm.specification.version" value="17"/>
-    <property name="APPLICATION_NAME" value="samuraitravel"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/temurin-17-jdk-amd64/lib"/>
     <property name="sun.java.command" value="/home/runner/work/RenderOutput2/RenderOutput2/target/surefire/surefirebooter7402732593864721888.jar /home/runner/work/RenderOutput2/RenderOutput2/target/surefire 2025-05-17T06-24-38_279-jvmRun1 surefire2834183346581340071tmp surefire_08343999176818697910tmp"/>
@@ -29,8 +27,6 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="FILE_LOG_CHARSET" value="UTF-8"/>
-    <property name="java.awt.headless" value="true"/>
     <property name="surefire.real.class.path" value="/home/runner/work/RenderOutput2/RenderOutput2/target/surefire/surefirebooter7402732593864721888.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.15+6"/>
@@ -44,13 +40,10 @@
     <property name="localRepository" value="/home/runner/.m2/repository"/>
     <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
     <property name="java.io.tmpdir" value="/tmp"/>
-    <property name="com.zaxxer.hikari.pool_number" value="1"/>
     <property name="java.version" value="17.0.15"/>
     <property name="user.dir" value="/home/runner/work/RenderOutput2/RenderOutput2"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="PID" value="2627"/>
-    <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
     <property name="native.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
@@ -59,50 +52,15 @@
     <property name="java.specification.maintenance.version" value="1"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
-    <property name="LOGGED_APPLICATION_NAME" value="[samuraitravel] "/>
   </properties>
-  <testcase name="contextLoads" classname="com.example.samuraitravel.SamuraitravelApplicationTests" time="0.02">
-    <system-out><![CDATA[06:24:41.382 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.samuraitravel.SamuraitravelApplicationTests]: SamuraitravelApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-06:24:41.494 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.samuraitravel.SamuraitravelApplication for test class com.example.samuraitravel.SamuraitravelApplicationTests
-06:24:41.607 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
-
-  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =========|_|==============|___/=/_/_/_/
-
- :: Spring Boot ::                (v3.4.0)
-
-2025-05-17T06:24:41.908+09:00  INFO 2627 --- [samuraitravel] [           main] c.e.s.SamuraitravelApplicationTests      : Starting SamuraitravelApplicationTests using Java 17.0.15 with PID 2627 (started by runner in /home/runner/work/RenderOutput2/RenderOutput2)
-2025-05-17T06:24:41.910+09:00  INFO 2627 --- [samuraitravel] [           main] c.e.s.SamuraitravelApplicationTests      : No active profile set, falling back to 1 default profile: "default"
-2025-05-17T06:24:42.667+09:00  INFO 2627 --- [samuraitravel] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-05-17T06:24:42.735+09:00  INFO 2627 --- [samuraitravel] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 59 ms. Found 7 JPA repository interfaces.
-2025-05-17T06:24:43.176+09:00  INFO 2627 --- [samuraitravel] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-05-17T06:24:44.588+09:00  INFO 2627 --- [samuraitravel] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@bd28c86
-2025-05-17T06:24:44.589+09:00  INFO 2627 --- [samuraitravel] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-05-17T06:24:49.857+09:00  INFO 2627 --- [samuraitravel] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-05-17T06:24:49.902+09:00  INFO 2627 --- [samuraitravel] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.2.Final
-2025-05-17T06:24:49.931+09:00  INFO 2627 --- [samuraitravel] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-05-17T06:24:50.060+09:00  INFO 2627 --- [samuraitravel] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-05-17T06:24:50.187+09:00  WARN 2627 --- [samuraitravel] [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-05-17T06:24:50.316+09:00  INFO 2627 --- [samuraitravel] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 16.8
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-05-17T06:24:51.031+09:00  INFO 2627 --- [samuraitravel] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-05-17T06:24:51.033+09:00  INFO 2627 --- [samuraitravel] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-05-17T06:24:51.463+09:00  INFO 2627 --- [samuraitravel] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-05-17T06:24:52.405+09:00  WARN 2627 --- [samuraitravel] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-05-17T06:24:52.432+09:00  INFO 2627 --- [samuraitravel] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
-2025-05-17T06:24:52.500+09:00  INFO 2627 --- [samuraitravel] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
-2025-05-17T06:24:52.795+09:00 DEBUG 2627 --- [samuraitravel] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CsrfFilter, LogoutFilter, UsernamePasswordAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-05-17T06:24:53.185+09:00  INFO 2627 --- [samuraitravel] [           main] c.e.s.SamuraitravelApplicationTests      : Started SamuraitravelApplicationTests in 11.586 seconds (process running for 13.963)
-]]></system-out>
-  </testcase>
+  <testcase name="testCreate_validationError" classname="com.example.samuraitravel.controller.AdminHouseControllerTest" time="1.361"/>
+  <testcase name="testCreate_valid" classname="com.example.samuraitravel.controller.AdminHouseControllerTest" time="0.015"/>
+  <testcase name="testEdit" classname="com.example.samuraitravel.controller.AdminHouseControllerTest" time="0.012"/>
+  <testcase name="testShow" classname="com.example.samuraitravel.controller.AdminHouseControllerTest" time="0.005"/>
+  <testcase name="testUpdate_validationError" classname="com.example.samuraitravel.controller.AdminHouseControllerTest" time="0.005"/>
+  <testcase name="testRegister" classname="com.example.samuraitravel.controller.AdminHouseControllerTest" time="0.005"/>
+  <testcase name="testUpdate_valid" classname="com.example.samuraitravel.controller.AdminHouseControllerTest" time="0.006"/>
+  <testcase name="testDelete" classname="com.example.samuraitravel.controller.AdminHouseControllerTest" time="0.004"/>
+  <testcase name="testIndex_withKeyword" classname="com.example.samuraitravel.controller.AdminHouseControllerTest" time="0.009"/>
+  <testcase name="testIndex_withoutKeyword" classname="com.example.samuraitravel.controller.AdminHouseControllerTest" time="0.004"/>
 </testsuite>
