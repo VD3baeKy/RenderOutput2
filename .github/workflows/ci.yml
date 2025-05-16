@@ -15,7 +15,6 @@ jobs:
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
       STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
-      
     services:
       postgres:
         image: postgres:14
@@ -45,21 +44,14 @@ jobs:
       run: |
         mkdir -p src/test/resources
         cat > src/test/resources/application-test.properties << EOF
-        # データベース設定
         spring.datasource.url=${{ secrets.DB_URL }}
         spring.datasource.username=${{ secrets.DB_USERNAME }}
         spring.datasource.password=${{ secrets.DB_PASSWORD }}
         spring.datasource.driver-class-name=org.postgresql.Driver
         spring.jpa.hibernate.ddl-auto=create-drop
-
-        # Stripe設定
         stripe.api-key=${{ secrets.STRIPE_API_KEY }}
         stripe.webhook-secret=${{ secrets.STRIPE_WEBHOOK_SECRET }}
-
-        # サーバー設定
         server.port=0
-
-        # ログレベル設定（トラブルシューティング用）
         logging.level.org.springframework=INFO
         logging.level.com.example=DEBUG
         EOF
@@ -77,6 +69,9 @@ jobs:
         STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
         SERVER_PORT: 0
 
+    - name: Debug Allure result directory
+      run: ls -l target/allure-results || echo "No allure-results directory"
+
     - name: Generate Allure HTML report
       uses: simple-elf/allure-report-action@v1
       with:
@@ -84,19 +79,15 @@ jobs:
         allure_report: 'target/allure-report'
         gh_pages: false
 
-    - name: Create artifact directory
-      run: mkdir -p artifact_reports
-
-    - name: Copy Allure HTML report to artifact directory
+    - name: Create artifact directory and copy Allure HTML report
       run: |
-        rm -rf artifact_reports   # 念のため初期化
+        rm -rf artifact_reports
         mkdir -p artifact_reports
         cp -r target/allure-report/* artifact_reports/
 
     - name: Copy XML test results to artifact directory
       run: cp -r target/surefire-reports/*.xml artifact_reports/ || echo "No XML files to copy"
 
-    # 現在のリポジトリへの保存
     - name: Save test reports to current repository
       if: always()
       run: |
@@ -106,8 +97,6 @@ jobs:
         git commit -m "Add Allure test reports from CI run" || echo "No changes to commit"
         git push origin HEAD:main
 
-    # 別リポジトリへのプッシュ（個人アクセストークンを使用）
-    # 別リポジトリへのプッシュ（全ファイル）
     - name: Push report to test code repository
       if: always()
       run: |
