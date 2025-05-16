@@ -1,7 +1,7 @@
 name: Java CI with Maven
 
 on: 
-  workflow_dispatch:  # 手動トリガーを設定
+  workflow_dispatch:
   
 permissions:
   contents: write
@@ -9,6 +9,28 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    # シークレットを環境変数として設定
+    env:
+      DB_URL: ${{ secrets.DB_URL }}
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      
+    # PostgreSQLサービスを追加（テスト用）
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_DB: testdb
+          POSTGRES_USER: ${{ secrets.DB_USERNAME }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
     - name: Check out code
@@ -20,41 +42,34 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    # テスト用の設定ファイルを作成 - シークレット変数を利用
+    - name: Create application-test.properties
+      run: |
+        echo "spring.datasource.url=${{ secrets.DB_URL }}" > src/test/resources/application-test.properties
+        echo "spring.datasource.username=${{ secrets.DB_USERNAME }}" >> src/test/resources/application-test.properties
+        echo "spring.datasource.password=${{ secrets.DB_PASSWORD }}" >> src/test/resources/application-test.properties
+        echo "spring.datasource.driver-class-name=org.postgresql.Driver" >> src/test/resources/application-test.properties
+        echo "spring.jpa.hibernate.ddl-auto=create-drop" >> src/test/resources/application-test.properties
+
     - name: Build with Maven
-      run: mvn clean install
+      run: mvn clean install -DskipTests
 
-    - name: Run tests
-      run: mvn test
+    - name: Run tests with specific profile
+      run: mvn test -Dspring.profiles.active=test
+      env:
+        SPRING_DATASOURCE_URL: ${{ secrets.DB_URL }}
+        SPRING_DATASOURCE_USERNAME: ${{ secrets.DB_USERNAME }}
+        SPRING_DATASOURCE_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
-    # ここから自力実装のアップロード処理
+    # アーティファクト保存処理
     - name: Create artifact directory
       run: mkdir -p artifact_reports
-
-    - name: Check if test reports exist
-      run: |
-        if [ -d "target/surefire-reports" ]; then
-          echo "Test reports directory exists"
-          ls -la target/surefire-reports/
-        else
-          echo "Test reports directory does not exist"
-          mkdir -p target/surefire-reports
-          echo "テストレポートはありません" > target/surefire-reports/no-reports.html
-        fi
-
+      
     - name: Copy test reports to artifact directory
       run: cp -r target/surefire-reports/*.html artifact_reports/ || echo "No HTML files to copy"
-
-    - name: Create zip archive
-      run: |
-        cd artifact_reports
-        zip -r ../test-reports.zip .
-        cd ..
-        echo "Zip file created:"
-        ls -la test-reports.zip
-
-    # 代替方法: コミットとしてリポジトリに保存
+      
     - name: Save test reports to repository
-      if: always()  # テストが失敗しても報告書を保存
+      if: always()
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
