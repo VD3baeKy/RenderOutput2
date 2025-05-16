@@ -153,25 +153,29 @@ public class AdminHouseControllerTest {
 
     @Test
     public void testUpdate_valid() {
-        HouseEditForm form = new HouseEditForm();
+        HouseEditForm form = new HouseEditForm(
+            1, "テスト宿", null, "新しい説明", 6000, 5, "111-2222", "東京都港区2-2-2", "080-3333-4444"
+        );
         RedirectAttributes redirectAttributes = mock(RedirectAttributes.class);
         when(bindingResult.hasErrors()).thenReturn(false);
-
+    
         String view = adminHouseController.update(form, bindingResult, redirectAttributes);
-
+    
         assertEquals("redirect:/admin/houses", view);
         verify(houseService).update(form);
         verify(redirectAttributes).addFlashAttribute("successMessage", "民宿情報を編集しました。");
     }
-
+    
     @Test
     public void testUpdate_validationError() {
-        HouseEditForm form = new HouseEditForm();
+        HouseEditForm form = new HouseEditForm(
+            2, "エラー宿", null, "エラー説明", 2000, 1, "555-6666", "大阪市西区3-3-3", "070-7777-8888"
+        );
         RedirectAttributes redirectAttributes = mock(RedirectAttributes.class);
         when(bindingResult.hasErrors()).thenReturn(true);
-
+    
         String view = adminHouseController.update(form, bindingResult, redirectAttributes);
-
+    
         assertEquals("admin/houses/edit", view);
         verify(houseService, never()).update(any());
     }
