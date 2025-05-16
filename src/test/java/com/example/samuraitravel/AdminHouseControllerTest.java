@@ -1,18 +1,22 @@
 package com.example.samuraitravel.controller;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
-import io.qameta.allure.Owner;
-import io.qameta.allure.Description;
-//import io.qameta.allure.DisplayName;
+// Allure 依存関係をすべて削除
+// import io.qameta.allure.Epic;
+// import io.qameta.allure.Feature;
+// import io.qameta.allure.Story;
+// import io.qameta.allure.Owner;
+// import io.qameta.allure.Description;
 
+// JUnit Jupiter のアノテーションを使用 (すでにインポート済み)
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;    // 追加：タグ付けのため
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;  // 追加：MockitoExtension用
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;  // 追加：MockitoExtension用
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -34,9 +38,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-@Epic("管理画面")
-@Feature("民宿管理")
-@Owner("TestUser")
+// Allure アノテーションを JUnit アノテーションに置き換え
+@DisplayName("管理画面 - 民宿管理")
+@ExtendWith(MockitoExtension.class)  // MockitoAnnotations.openMocks(this) の代わりに使用
+@Tag("AdminTests")                 // @Epic("管理画面") の代わり
+@Tag("HouseManagement")            // @Feature("民宿管理") の代わり
 public class AdminHouseControllerTest {
 
     @Mock
@@ -54,14 +60,15 @@ public class AdminHouseControllerTest {
     @InjectMocks
     private AdminHouseController adminHouseController;
 
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.openMocks(this);
-    }
+    // MockitoExtension を使用するので不要
+    // @BeforeEach
+    // public void setup() {
+    //     MockitoAnnotations.openMocks(this);
+    // }
 
     @Test
     @DisplayName("キーワードあり検索")
-    @Story("一覧取得")
+    @Tag("List")       // @Story("一覧取得") の代わり
     public void testIndex_withKeyword() {
         Pageable pageable = PageRequest.of(0, 10);
         String keyword = "民宿";
@@ -79,7 +86,7 @@ public class AdminHouseControllerTest {
 
     @Test
     @DisplayName("キーワードなし検索")
-    @Story("一覧取得")
+    @Tag("List")       // @Story("一覧取得") の代わり
     public void testIndex_withoutKeyword() {
         Pageable pageable = PageRequest.of(0, 10);
         String keyword = null;
@@ -97,7 +104,7 @@ public class AdminHouseControllerTest {
 
     @Test
     @DisplayName("詳細表示")
-    @Story("詳細表示")
+    @Tag("Detail")     // @Story("詳細表示") の代わり
     public void testShow() {
         Integer id = 123;
         House house = new House();
@@ -112,7 +119,7 @@ public class AdminHouseControllerTest {
 
     @Test
     @DisplayName("登録画面表示")
-    @Story("登録")
+    @Tag("Register")   // @Story("登録") の代わり
     public void testRegister() {
         String view = adminHouseController.register(model);
 
@@ -122,7 +129,7 @@ public class AdminHouseControllerTest {
 
     @Test
     @DisplayName("登録成功")
-    @Story("登録")
+    @Tag("Register")   // @Story("登録") の代わり
     public void testCreate_valid() {
         HouseRegisterForm form = new HouseRegisterForm();
         RedirectAttributes redirectAttributes = mock(RedirectAttributes.class);
@@ -138,7 +145,7 @@ public class AdminHouseControllerTest {
 
     @Test
     @DisplayName("登録時バリデーションエラー")
-    @Story("登録")
+    @Tag("Register")   // @Story("登録") の代わり
     public void testCreate_validationError() {
         HouseRegisterForm form = new HouseRegisterForm();
         RedirectAttributes redirectAttributes = mock(RedirectAttributes.class);
@@ -153,7 +160,7 @@ public class AdminHouseControllerTest {
 
     @Test
     @DisplayName("編集画面表示")
-    @Story("編集")
+    @Tag("Edit")       // @Story("編集") の代わり
     public void testEdit() {
         Integer id = 789;
         House house = new House();
@@ -177,7 +184,7 @@ public class AdminHouseControllerTest {
 
     @Test
     @DisplayName("編集成功")
-    @Story("編集")
+    @Tag("Edit")       // @Story("編集") の代わり
     public void testUpdate_valid() {
         HouseEditForm form = new HouseEditForm(
             1, "テスト宿", null, "新しい説明", 6000, 5, "111-2222", "東京都港区2-2-2", "080-3333-4444"
@@ -194,7 +201,7 @@ public class AdminHouseControllerTest {
 
     @Test
     @DisplayName("編集バリデーションエラー")
-    @Story("編集")
+    @Tag("Edit")       // @Story("編集") の代わり
     public void testUpdate_validationError() {
         HouseEditForm form = new HouseEditForm(
             2, "エラー宿", null, "エラー説明", 2000, 1, "555-6666", "大阪市西区3-3-3", "070-7777-8888"
@@ -210,7 +217,7 @@ public class AdminHouseControllerTest {
 
     @Test
     @DisplayName("削除")
-    @Story("削除")
+    @Tag("Delete")     // @Story("削除") の代わり
     public void testDelete() {
         Integer id = 99;
         RedirectAttributes redirectAttributes = mock(RedirectAttributes.class);
