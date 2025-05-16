@@ -10,11 +10,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
-    # シークレットを環境変数として設定
+    # 環境変数の追加 - Stripe APIキーを含める
     env:
       DB_URL: ${{ secrets.DB_URL }}
       DB_USERNAME: ${{ secrets.DB_USERNAME }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
       
     # PostgreSQLサービスを追加（テスト用）
     services:
@@ -42,7 +43,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # ディレクトリの作成コマンドを追加 - ここが重要
+    # テスト用ディレクトリと設定ファイル作成 - Stripe APIキーを追加
     - name: Create test directories and configuration
       run: |
         mkdir -p src/test/resources
@@ -51,6 +52,7 @@ jobs:
         echo "spring.datasource.password=${{ secrets.DB_PASSWORD }}" >> src/test/resources/application-test.properties
         echo "spring.datasource.driver-class-name=org.postgresql.Driver" >> src/test/resources/application-test.properties
         echo "spring.jpa.hibernate.ddl-auto=create-drop" >> src/test/resources/application-test.properties
+        echo "stripe.api-key=${{ secrets.STRIPE_API_KEY }}" >> src/test/resources/application-test.properties
 
     - name: Build with Maven
       run: mvn clean install -DskipTests
@@ -61,6 +63,7 @@ jobs:
         SPRING_DATASOURCE_URL: ${{ secrets.DB_URL }}
         SPRING_DATASOURCE_USERNAME: ${{ secrets.DB_USERNAME }}
         SPRING_DATASOURCE_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
 
     # アーティファクト保存処理
     - name: Create artifact directory
