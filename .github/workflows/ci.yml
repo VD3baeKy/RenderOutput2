@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
-    # 環境変数を更新 - Webhook シークレットも追加
+    # 環境変数
     env:
       DB_URL: ${{ secrets.DB_URL }}
       DB_USERNAME: ${{ secrets.DB_USERNAME }}
@@ -18,7 +18,7 @@ jobs:
       STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
       STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
       
-    # PostgreSQLサービスを追加（テスト用）
+    # PostgreSQL サービス
     services:
       postgres:
         image: postgres:14
@@ -44,17 +44,29 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # テスト用ディレクトリと設定ファイル作成 - Webhook シークレットも追加
+    # テスト用の設定ファイルを作成 - server.port を追加
     - name: Create test directories and configuration
       run: |
         mkdir -p src/test/resources
-        echo "spring.datasource.url=${{ secrets.DB_URL }}" > src/test/resources/application-test.properties
-        echo "spring.datasource.username=${{ secrets.DB_USERNAME }}" >> src/test/resources/application-test.properties
-        echo "spring.datasource.password=${{ secrets.DB_PASSWORD }}" >> src/test/resources/application-test.properties
-        echo "spring.datasource.driver-class-name=org.postgresql.Driver" >> src/test/resources/application-test.properties
-        echo "spring.jpa.hibernate.ddl-auto=create-drop" >> src/test/resources/application-test.properties
-        echo "stripe.api-key=${{ secrets.STRIPE_API_KEY }}" >> src/test/resources/application-test.properties
-        echo "stripe.webhook-secret=${{ secrets.STRIPE_WEBHOOK_SECRET }}" >> src/test/resources/application-test.properties
+        cat > src/test/resources/application-test.properties << EOF
+        # データベース設定
+        spring.datasource.url=${{ secrets.DB_URL }}
+        spring.datasource.username=${{ secrets.DB_USERNAME }}
+        spring.datasource.password=${{ secrets.DB_PASSWORD }}
+        spring.datasource.driver-class-name=org.postgresql.Driver
+        spring.jpa.hibernate.ddl-auto=create-drop
+        
+        # Stripe設定
+        stripe.api-key=${{ secrets.STRIPE_API_KEY }}
+        stripe.webhook-secret=${{ secrets.STRIPE_WEBHOOK_SECRET }}
+        
+        # サーバー設定
+        server.port=0
+        
+        # ログレベル設定（トラブルシューティング用）
+        logging.level.org.springframework=INFO
+        logging.level.com.example=DEBUG
+        EOF
 
     - name: Build with Maven
       run: mvn clean install -DskipTests
@@ -67,8 +79,9 @@ jobs:
         SPRING_DATASOURCE_PASSWORD: ${{ secrets.DB_PASSWORD }}
         STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
         STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+        SERVER_PORT: 0
 
-    # アーティファクト保存処理
+    # アーティファクト保存処理 (変更なし)
     - name: Create artifact directory
       run: mkdir -p artifact_reports
       
