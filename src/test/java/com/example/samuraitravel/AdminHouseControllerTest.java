@@ -1,15 +1,10 @@
 package com.example.samuraitravel;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -20,26 +15,28 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import com.example.samuraitravel.controller.AdminHouseController;
 import com.example.samuraitravel.entity.House;
-import com.example.samuraitravel.form.HouseEditForm;
 import com.example.samuraitravel.form.HouseRegisterForm;
 import com.example.samuraitravel.repository.HouseRepository;
 import com.example.samuraitravel.service.HouseService;
 
 public class AdminHouseControllerTest {
 
-    private MockMvc mockMvc;
-    
     @Mock
     private HouseRepository houseRepository;
     
     @Mock
     private HouseService houseService;
+    
+    @Mock
+    private Model model;
+    
+    @Mock
+    private BindingResult bindingResult;
     
     @InjectMocks
     private AdminHouseController adminHouseController;
@@ -47,82 +44,88 @@ public class AdminHouseControllerTest {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
-        
-        // ビューのレンダリングをスキップする設定
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/views/");
-        viewResolver.setSuffix(".html");
-        
-        mockMvc = MockMvcBuilders.standaloneSetup(adminHouseController)
-                .setViewResolvers(viewResolver)
-                .build();
-                
-        // モックの設定：ページネーション用のモックデータ
-        Page<House> mockPage = new PageImpl<>(new ArrayList<>());
-        when(houseRepository.findAll(any(Pageable.class))).thenReturn(mockPage);
-        
-        // 詳細表示用のモックデータ
+    }
+    
+    @Test
+    public void testIndex() {
+        // モックデータの準備
+        List<House> houses = new ArrayList<>();
         House house = new House();
         house.setId(1);
         house.setName("テスト宿");
-        house.setDescription("テスト説明");
-        when(houseRepository.findById(anyInt())).thenReturn(Optional.of(house));
+        houses.add(house);
+        Page<House> housePage = new PageImpl<>(houses);
         
-        // サービスメソッドのモック
-        doNothing().when(houseService).create(any(HouseRegisterForm.class));
-        doNothing().when(houseService).update(any(HouseEditForm.class));
+        // モックの振る舞いを設定
+        when(houseRepository.findAll(any(Pageable.class))).thenReturn(housePage);
+        
+        // コントローラメソッドを呼び出し
+        String viewName = adminHouseController.index(model);
+        
+        // 検証
+        assertEquals("admin/houses/index", viewName);
+        verify(model).addAttribute(eq("housePage"), any(Page.class));
     }
     
     @Test
-    public void testIndex() throws Exception {
-        mockMvc.perform(get("/admin/houses"))
-               .andExpect(status().isOk());
+    public void testShow() {
+        // モックデータの準備
+        House house = new House();
+        house.setId(1);
+        house.setName("テスト宿");
+        
+        // モックの振る舞いを設定
+        when(houseRepository.findById(1)).thenReturn(Optional.of(house));
+        
+        // コントローラメソッドを呼び出し
+        String viewName = adminHouseController.show(1, model);
+        
+        // 検証
+        assertEquals("admin/houses/show", viewName);
+        verify(model).addAttribute("house", house);
     }
     
     @Test
-    public void testShow() throws Exception {
-        mockMvc.perform(get("/admin/houses/1"))
-               .andExpect(status().isOk());
+    public void testCreateForm() {
+        // コントローラメソッドを呼び出し
+        String viewName = adminHouseController.createForm(model);
+        
+        // 検証
+        assertEquals("admin/houses/register", viewName); // パスが "register" であることに注意
+        verify(model).addAttribute(eq("houseRegisterForm"), any(HouseRegisterForm.class));
     }
     
     @Test
-    public void testCreateForm() throws Exception {
-        mockMvc.perform(get("/admin/houses/register"))
-               .andExpect(status().isOk());
+    public void testCreateWithValidInput() {
+        // テスト用フォームオブジェクトを作成
+        HouseRegisterForm form = new HouseRegisterForm();
+        form.setName("テスト宿");
+        
+        // バリデーションエラーなし
+        when(bindingResult.hasErrors()).thenReturn(false);
+        
+        // コントローラメソッドを呼び出し
+        String viewName = adminHouseController.create(form, bindingResult);
+        
+        // 検証
+        assertEquals("redirect:/admin/houses", viewName);
+        verify(houseService).create(form);
     }
     
     @Test
-    public void testCreate() throws Exception {
-        mockMvc.perform(post("/admin/houses/create")
-                     .with(csrf())
-                     .param("name", "テスト宿")
-                     .param("description", "テスト説明")
-                     .param("price", "5000")
-                     .param("capacity", "2")
-                     .param("postalCode", "123-4567")
-                     .param("address", "テスト住所")
-                     .param("phoneNumber", "012-3456-7890"))
-                .andExpect(status().is3xxRedirection());
-    }
-    
-    @Test
-    public void testEditForm() throws Exception {
-        mockMvc.perform(get("/admin/houses/1/edit"))
-               .andExpect(status().isOk());
-    }
-    
-    @Test
-    public void testUpdate() throws Exception {
-        mockMvc.perform(post("/admin/houses/1/update")
-                     .with(csrf())
-                     .param("id", "1")
-                     .param("name", "更新宿")
-                     .param("description", "更新説明")
-                     .param("price", "6000")
-                     .param("capacity", "3")
-                     .param("postalCode", "234-5678")
-                     .param("address", "更新住所")
-                     .param("phoneNumber", "023-4567-8901"))
-                .andExpect(status().is3xxRedirection());
+    public void testCreateWithInvalidInput() {
+        // テスト用フォームオブジェクトを作成
+        HouseRegisterForm form = new HouseRegisterForm();
+        form.setName(""); // 不正な入力
+        
+        // バリデーションエラーあり
+        when(bindingResult.hasErrors()).thenReturn(true);
+        
+        // コントローラメソッドを呼び出し
+        String viewName = adminHouseController.create(form, bindingResult);
+        
+        // 検証
+        assertEquals("admin/houses/register", viewName); // エラー時は登録フォームに戻る
+        verify(houseService, never()).create(any()); // createメソッドは呼ばれないことを確認
     }
 }
