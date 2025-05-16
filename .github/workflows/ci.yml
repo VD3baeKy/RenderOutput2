@@ -51,14 +51,14 @@ jobs:
         spring.datasource.password=${{ secrets.DB_PASSWORD }}
         spring.datasource.driver-class-name=org.postgresql.Driver
         spring.jpa.hibernate.ddl-auto=create-drop
-        
+
         # Stripe設定
         stripe.api-key=${{ secrets.STRIPE_API_KEY }}
         stripe.webhook-secret=${{ secrets.STRIPE_WEBHOOK_SECRET }}
-        
+
         # サーバー設定
         server.port=0
-        
+
         # ログレベル設定（トラブルシューティング用）
         logging.level.org.springframework=INFO
         logging.level.com.example=DEBUG
@@ -67,8 +67,8 @@ jobs:
     - name: Build with Maven
       run: mvn clean install -DskipTests
 
-    - name: Run tests and generate reports
-      run: mvn clean test site
+    - name: Run tests and generate reports (JST)
+      run: mvn clean test site -Duser.timezone=Asia/Tokyo
       env:
         SPRING_DATASOURCE_URL: ${{ secrets.DB_URL }}
         SPRING_DATASOURCE_USERNAME: ${{ secrets.DB_USERNAME }}
@@ -76,6 +76,15 @@ jobs:
         STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
         STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
         SERVER_PORT: 0
+
+    - name: Set JST timestamp for Last Published in report HTML
+      run: |
+        JST_NOW=$(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M:%S')
+        for f in target/site/surefire-report.html artifact_reports/surefire-report.html; do
+          if [ -f "$f" ]; then
+            sed -i -E "s#(Last Published: )([0-9\-]+)(</b>)?#\1${JST_NOW} (JST)\3#g" "$f"
+          fi
+        done
 
     - name: Create artifact directory
       run: mkdir -p artifact_reports
@@ -103,13 +112,13 @@ jobs:
       run: |
         # コピーしてindexとして保存
         cp artifact_reports/surefire-report.html index.html
-        
+
         # 別リポジトリのクローン（パスを指定して別フォルダにクローン）
         git clone https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/VD3baeKy/RenderOutput2_TestCodeRepo.git test-repo
-        
+
         # ファイルをコピー
         cp index.html test-repo/
-        
+
         # 別リポジトリにコミットとプッシュ
         cd test-repo
         git config user.name "github-actions[bot]"
@@ -117,3 +126,4 @@ jobs:
         git add index.html
         git commit -m "Update test report" || echo "No changes to commit"
         git push
+        
