@@ -89,9 +89,9 @@ jobs:
 
     - name: Copy Allure HTML report to artifact directory
       run: |
-        if [ -d target/allure-report ]; then
-          cp -r target/allure-report/* artifact_reports/
-        fi
+        rm -rf artifact_reports   # 念のため初期化
+        mkdir -p artifact_reports
+        cp -r target/allure-report/* artifact_reports/
 
     - name: Copy XML test results to artifact directory
       run: cp -r target/surefire-reports/*.xml artifact_reports/ || echo "No XML files to copy"
@@ -107,23 +107,17 @@ jobs:
         git push origin HEAD:main
 
     # 別リポジトリへのプッシュ（個人アクセストークンを使用）
+    # 別リポジトリへのプッシュ（全ファイル）
     - name: Push report to test code repository
       if: always()
       run: |
-        # index.htmlがAllureのトップページ。コピーする
-        cp artifact_reports/index.html index.html
-
-        # 別リポジトリのクローン
         git clone https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/VD3baeKy/RenderOutput2_TestCodeRepo.git test-repo
-
-        # ファイルをコピー
-        cp index.html test-repo/
-
-        # 別リポジトリにコミットとプッシュ
+        cp -r artifact_reports/* test-repo/
+        touch test-repo/.nojekyll
         cd test-repo
         git config user.name "github-actions[bot]"
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        git add index.html
+        git add .
         git commit -m "Update Allure test report" || echo "No changes to commit"
         git push
         
