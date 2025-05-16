@@ -1,5 +1,12 @@
 package com.example.samuraitravel.controller;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Description;
+import io.qameta.allure.DisplayName;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -21,12 +28,14 @@ import com.example.samuraitravel.service.HouseService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
+@Epic("管理画面")
+@Feature("民宿管理")
+@Owner("TestUser")
 public class AdminHouseControllerTest {
 
     @Mock
@@ -50,6 +59,8 @@ public class AdminHouseControllerTest {
     }
 
     @Test
+    @DisplayName("キーワードあり検索")
+    @Story("一覧取得")
     public void testIndex_withKeyword() {
         Pageable pageable = PageRequest.of(0, 10);
         String keyword = "民宿";
@@ -66,6 +77,8 @@ public class AdminHouseControllerTest {
     }
 
     @Test
+    @DisplayName("キーワードなし検索")
+    @Story("一覧取得")
     public void testIndex_withoutKeyword() {
         Pageable pageable = PageRequest.of(0, 10);
         String keyword = null;
@@ -82,6 +95,8 @@ public class AdminHouseControllerTest {
     }
 
     @Test
+    @DisplayName("詳細表示")
+    @Story("詳細表示")
     public void testShow() {
         Integer id = 123;
         House house = new House();
@@ -95,6 +110,8 @@ public class AdminHouseControllerTest {
     }
 
     @Test
+    @DisplayName("登録画面表示")
+    @Story("登録")
     public void testRegister() {
         String view = adminHouseController.register(model);
 
@@ -103,6 +120,8 @@ public class AdminHouseControllerTest {
     }
 
     @Test
+    @DisplayName("登録成功")
+    @Story("登録")
     public void testCreate_valid() {
         HouseRegisterForm form = new HouseRegisterForm();
         RedirectAttributes redirectAttributes = mock(RedirectAttributes.class);
@@ -117,6 +136,8 @@ public class AdminHouseControllerTest {
     }
 
     @Test
+    @DisplayName("登録時バリデーションエラー")
+    @Story("登録")
     public void testCreate_validationError() {
         HouseRegisterForm form = new HouseRegisterForm();
         RedirectAttributes redirectAttributes = mock(RedirectAttributes.class);
@@ -130,6 +151,8 @@ public class AdminHouseControllerTest {
     }
 
     @Test
+    @DisplayName("編集画面表示")
+    @Story("編集")
     public void testEdit() {
         Integer id = 789;
         House house = new House();
@@ -152,35 +175,41 @@ public class AdminHouseControllerTest {
     }
 
     @Test
+    @DisplayName("編集成功")
+    @Story("編集")
     public void testUpdate_valid() {
         HouseEditForm form = new HouseEditForm(
             1, "テスト宿", null, "新しい説明", 6000, 5, "111-2222", "東京都港区2-2-2", "080-3333-4444"
         );
         RedirectAttributes redirectAttributes = mock(RedirectAttributes.class);
         when(bindingResult.hasErrors()).thenReturn(false);
-    
+
         String view = adminHouseController.update(form, bindingResult, redirectAttributes);
-    
+
         assertEquals("redirect:/admin/houses", view);
         verify(houseService).update(form);
         verify(redirectAttributes).addFlashAttribute("successMessage", "民宿情報を編集しました。");
     }
-    
+
     @Test
+    @DisplayName("編集バリデーションエラー")
+    @Story("編集")
     public void testUpdate_validationError() {
         HouseEditForm form = new HouseEditForm(
             2, "エラー宿", null, "エラー説明", 2000, 1, "555-6666", "大阪市西区3-3-3", "070-7777-8888"
         );
         RedirectAttributes redirectAttributes = mock(RedirectAttributes.class);
         when(bindingResult.hasErrors()).thenReturn(true);
-    
+
         String view = adminHouseController.update(form, bindingResult, redirectAttributes);
-    
+
         assertEquals("admin/houses/edit", view);
         verify(houseService, never()).update(any());
     }
 
     @Test
+    @DisplayName("削除")
+    @Story("削除")
     public void testDelete() {
         Integer id = 99;
         RedirectAttributes redirectAttributes = mock(RedirectAttributes.class);
