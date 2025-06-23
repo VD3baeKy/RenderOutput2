@@ -1,6 +1,6 @@
 # 民宿予約サイト “SAMURAI Travel”
 
-* [デモサイト “SAMURAI Travel”](https://renderoutput.onrender.com/)のソースコードです。
+* [デモサイト “SAMURAI Travel”](https://renderoutput2-70xrx0ws.b4a.run/)のソースコードです。
 
      - [デモサイトURL:　https://renderoutput2-70xrx0ws.b4a.run/](https://renderoutput2-70xrx0ws.b4a.run/)
      - [表示されない場合はこちら：　https://renderoutput.onrender.com/](https://renderoutput.onrender.com/)
