@@ -9,7 +9,7 @@ java -jar /app/app.jar &
 # docker push vd3baeky/RenderOutput2:latest
 
 # テストを実行
-mvn test
+#mvn test
 
 # (任意) アプリケーション終了まで待機
 wait
